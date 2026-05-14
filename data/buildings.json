@@ -1,0 +1,135 @@
+[
+  {
+    "id": "BLD001",
+    "buildingName": "Sri Nagar Villas",
+    "clientName": "G. Suresh",
+    "siteAddress": "Chromepet, Chennai",
+    "landId": "LAND001",
+    "floors": 2,
+    "buildingArea": "2450 Sq.ft",
+    "agreementDetails": "Turnkey contract - 11 months",
+    "approvalStatus": "Panchayat Approved",
+    "planLayoutPdfName": "sri-nagar-plan.pdf",
+    "constructionProgress": 72,
+    "totalExpense": 3280000,
+    "totalReceivedPayment": 3950000,
+    "employeeIds": ["EMP001", "EMP002", "EMP006"],
+    "labourList": [
+      { "title": "Mason", "count": 3 },
+      { "title": "Carpenter", "count": 2 },
+      { "title": "Painter", "count": 2 },
+      { "title": "Welder", "count": 1 },
+      { "title": "Electrician", "count": 1 },
+      { "title": "Plumber", "count": 1 },
+      { "title": "Helpers", "count": 4 },
+      { "title": "Female Labour", "count": 3 },
+      { "title": "Male Labour", "count": 5 }
+    ],
+    "vendorIds": ["VND001", "VND003"],
+    "materialsSummary": { "purchased": 1820000, "used": 1360000, "pending": 460000 },
+    "approvals": {
+      "VST Approval": { "status": "Approved", "date": "2025-08-12", "amount": 25000, "remarks": "Completed", "pdfName": "vst-bld001.pdf" },
+      "UDG Approval": { "status": "Approved", "date": "2025-08-20", "amount": 20000, "remarks": "Completed", "pdfName": "udg-bld001.pdf" },
+      "Panchayat Approval": { "status": "Approved", "date": "2025-08-28", "amount": 40000, "remarks": "Drawing accepted", "pdfName": "panchayat-bld001.pdf" },
+      "LPA Approval": { "status": "Approved", "date": "2025-09-03", "amount": 15000, "remarks": "Checked", "pdfName": "lpa-bld001.pdf" },
+      "Development Approval": { "status": "Approved", "date": "2025-09-12", "amount": 18000, "remarks": "All set", "pdfName": "development-bld001.pdf" },
+      "Union Bank Deposit": { "status": "Paid", "date": "2025-09-15", "amount": 50000, "remarks": "Deposit paid", "pdfName": "bank-slip-bld001.pdf" },
+      "Tax": { "status": "Paid", "date": "2026-01-04", "amount": 12000, "remarks": "Latest tax paid", "pdfName": "tax-bld001.pdf" },
+      "Engineer Approval": { "status": "Approved", "date": "2025-09-22", "amount": 10000, "remarks": "Structural okay", "pdfName": "engineer-bld001.pdf" },
+      "Online Approval": { "status": "Approved", "date": "2025-09-29", "amount": 5000, "remarks": "Portal completed", "pdfName": "online-bld001.pdf" }
+    },
+    "remarks": ["Roof slab completed", "Tiles selection pending from client"],
+    "dailyUpdates": [
+      { "date": "2026-05-10", "note": "Granite delivered for staircase." },
+      { "date": "2026-05-12", "note": "Painting second coat completed on first floor." }
+    ]
+  },
+  {
+    "id": "BLD002",
+    "buildingName": "AK Residency",
+    "clientName": "A. Kalpana",
+    "siteAddress": "Tambaram, Chennai",
+    "landId": "LAND002",
+    "floors": 3,
+    "buildingArea": "3200 Sq.ft",
+    "agreementDetails": "Labour contract - 14 months",
+    "approvalStatus": "Engineer Approval Pending",
+    "planLayoutPdfName": "ak-residency-plan.pdf",
+    "constructionProgress": 46,
+    "totalExpense": 2540000,
+    "totalReceivedPayment": 2710000,
+    "employeeIds": ["EMP003", "EMP004"],
+    "labourList": [
+      { "title": "Mason", "count": 4 },
+      { "title": "Carpenter", "count": 1 },
+      { "title": "Painter", "count": 0 },
+      { "title": "Welder", "count": 1 },
+      { "title": "Electrician", "count": 1 },
+      { "title": "Plumber", "count": 1 },
+      { "title": "Helpers", "count": 3 },
+      { "title": "Female Labour", "count": 1 },
+      { "title": "Male Labour", "count": 4 }
+    ],
+    "vendorIds": ["VND001", "VND002"],
+    "materialsSummary": { "purchased": 1260000, "used": 890000, "pending": 370000 },
+    "approvals": {
+      "VST Approval": { "status": "Approved", "date": "2026-01-15", "amount": 22000, "remarks": "Completed", "pdfName": "vst-bld002.pdf" },
+      "UDG Approval": { "status": "Approved", "date": "2026-01-18", "amount": 19000, "remarks": "Completed", "pdfName": "udg-bld002.pdf" },
+      "Panchayat Approval": { "status": "Approved", "date": "2026-01-29", "amount": 41000, "remarks": "Approved", "pdfName": "panchayat-bld002.pdf" },
+      "LPA Approval": { "status": "Approved", "date": "2026-02-08", "amount": 15000, "remarks": "Approved", "pdfName": "lpa-bld002.pdf" },
+      "Development Approval": { "status": "Approved", "date": "2026-02-12", "amount": 17500, "remarks": "Approved", "pdfName": "development-bld002.pdf" },
+      "Union Bank Deposit": { "status": "Paid", "date": "2026-02-16", "amount": 50000, "remarks": "Paid", "pdfName": "bank-slip-bld002.pdf" },
+      "Tax": { "status": "Paid", "date": "2026-03-04", "amount": 11000, "remarks": "Paid", "pdfName": "tax-bld002.pdf" },
+      "Engineer Approval": { "status": "Pending", "date": "2026-05-21", "amount": 10000, "remarks": "Site visit next week", "pdfName": "engineer-pending-bld002.pdf" },
+      "Online Approval": { "status": "Submitted", "date": "2026-05-08", "amount": 5000, "remarks": "Portal updated", "pdfName": "online-bld002.pdf" }
+    },
+    "remarks": ["Shuttering work in progress"],
+    "dailyUpdates": [
+      { "date": "2026-05-11", "note": "Second floor column concrete completed." }
+    ]
+  },
+  {
+    "id": "BLD003",
+    "buildingName": "Green Court Apartments",
+    "clientName": "P. Meena",
+    "siteAddress": "Vandalur, Chennai",
+    "landId": "LAND003",
+    "floors": 4,
+    "buildingArea": "5400 Sq.ft",
+    "agreementDetails": "Material + labour package",
+    "approvalStatus": "LPA Approval Pending",
+    "planLayoutPdfName": "green-court-plan.pdf",
+    "constructionProgress": 30,
+    "totalExpense": 1980000,
+    "totalReceivedPayment": 1800000,
+    "employeeIds": ["EMP005"],
+    "labourList": [
+      { "title": "Mason", "count": 3 },
+      { "title": "Carpenter", "count": 2 },
+      { "title": "Painter", "count": 0 },
+      { "title": "Welder", "count": 1 },
+      { "title": "Electrician", "count": 1 },
+      { "title": "Plumber", "count": 1 },
+      { "title": "Helpers", "count": 4 },
+      { "title": "Female Labour", "count": 2 },
+      { "title": "Male Labour", "count": 6 }
+    ],
+    "vendorIds": ["VND002", "VND004"],
+    "materialsSummary": { "purchased": 980000, "used": 640000, "pending": 340000 },
+    "approvals": {
+      "VST Approval": { "status": "Approved", "date": "2026-02-03", "amount": 20000, "remarks": "Approved", "pdfName": "vst-bld003.pdf" },
+      "UDG Approval": { "status": "Approved", "date": "2026-02-09", "amount": 17000, "remarks": "Approved", "pdfName": "udg-bld003.pdf" },
+      "Panchayat Approval": { "status": "Approved", "date": "2026-02-18", "amount": 36000, "remarks": "Approved", "pdfName": "panchayat-bld003.pdf" },
+      "LPA Approval": { "status": "Pending", "date": "2026-05-26", "amount": 15000, "remarks": "Awaiting sign off", "pdfName": "lpa-bld003.pdf" },
+      "Development Approval": { "status": "Approved", "date": "2026-03-01", "amount": 17000, "remarks": "Approved", "pdfName": "development-bld003.pdf" },
+      "Union Bank Deposit": { "status": "Paid", "date": "2026-03-02", "amount": 50000, "remarks": "Paid", "pdfName": "bank-slip-bld003.pdf" },
+      "Tax": { "status": "Pending", "date": "2026-06-05", "amount": 9000, "remarks": "Upcoming payment", "pdfName": "tax-bld003.pdf" },
+      "Engineer Approval": { "status": "Approved", "date": "2026-03-12", "amount": 9500, "remarks": "Approved", "pdfName": "engineer-bld003.pdf" },
+      "Online Approval": { "status": "Submitted", "date": "2026-05-09", "amount": 5000, "remarks": "Portal waiting", "pdfName": "online-bld003.pdf" }
+    },
+    "remarks": ["Basement block work under review"],
+    "dailyUpdates": [
+      { "date": "2026-05-09", "note": "Steel delivery received for slab work." }
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "USR001",
+    "name": "S. Arumugam",
+    "email": "admin@test.com",
+    "password": "123456",
+    "phone": "+91 90000 11111",
+    "role": "overallAdmin"
+  },
+  {
+    "id": "USR002",
+    "name": "R. Priya",
+    "email": "payment@test.com",
+    "password": "123456",
+    "phone": "+91 90000 22222",
+    "role": "paymentManager"
+  },
+  {
+    "id": "USR003",
+    "name": "M. Senthil",
+    "email": "lead@test.com",
+    "password": "123456",
+    "phone": "+91 90000 33333",
+    "role": "leadManager",
+    "assignedBuildingId": "BLD001"
+  },
+  {
+    "id": "USR004",
+    "name": "K. Ravi",
+    "email": "user@test.com",
+    "password": "123456",
+    "phone": "+91 90000 44444",
+    "role": "staff",
+    "assignedBuildingId": "BLD001",
+    "employeeId": "EMP006"
+  }
+]

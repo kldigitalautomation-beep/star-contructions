@@ -1,0 +1,119 @@
+[
+  {
+    "id": "EMP001",
+    "employeeName": "R. Selvi",
+    "employeeCode": "SC001",
+    "mobileNumber": "+91 98880 00001",
+    "roleTitle": "Site Engineer",
+    "category": "Company Staff",
+    "assignedBuildingId": "BLD001",
+    "salaryType": "Monthly",
+    "salaryAmount": 32000,
+    "attendance": { "present": 22, "absent": 2, "halfDay": 1, "todayStatus": "Present" },
+    "leaveUsed": 2,
+    "extraLeave": 0,
+    "leaveBalance": 2,
+    "paymentHistory": [
+      { "date": "2026-04-30", "amount": 32000, "note": "April salary" },
+      { "date": "2026-03-31", "amount": 32000, "note": "March salary" }
+    ],
+    "northIndian": false
+  },
+  {
+    "id": "EMP002",
+    "employeeName": "M. Baskar",
+    "employeeCode": "SC002",
+    "mobileNumber": "+91 98880 00002",
+    "roleTitle": "Mason Supervisor",
+    "category": "Site Employees",
+    "assignedBuildingId": "BLD001",
+    "salaryType": "Weekly",
+    "salaryAmount": 6800,
+    "attendance": { "present": 21, "absent": 3, "halfDay": 0, "todayStatus": "Present" },
+    "leaveUsed": 3,
+    "extraLeave": 0,
+    "leaveBalance": 1,
+    "paymentHistory": [
+      { "date": "2026-05-09", "amount": 6800, "note": "Weekly payout" },
+      { "date": "2026-05-02", "amount": 6800, "note": "Weekly payout" }
+    ],
+    "northIndian": false
+  },
+  {
+    "id": "EMP003",
+    "employeeName": "P. Kumar",
+    "employeeCode": "SC003",
+    "mobileNumber": "+91 98880 00003",
+    "roleTitle": "Electrician",
+    "category": "Site Employees",
+    "assignedBuildingId": "BLD002",
+    "salaryType": "Weekly",
+    "salaryAmount": 5400,
+    "attendance": { "present": 20, "absent": 4, "halfDay": 1, "todayStatus": "Half Day" },
+    "leaveUsed": 4,
+    "extraLeave": 1,
+    "leaveBalance": 0,
+    "paymentHistory": [
+      { "date": "2026-05-09", "amount": 5400, "note": "Weekly wage" }
+    ],
+    "northIndian": false
+  },
+  {
+    "id": "EMP004",
+    "employeeName": "Raju Yadav",
+    "employeeCode": "SC004",
+    "mobileNumber": "+91 98880 00004",
+    "roleTitle": "North Indian Labour",
+    "category": "North Indian Workers",
+    "assignedBuildingId": "BLD002",
+    "salaryType": "Weekly",
+    "salaryAmount": 4800,
+    "attendance": { "present": 23, "absent": 1, "halfDay": 1, "todayStatus": "Present" },
+    "leaveUsed": 1,
+    "extraLeave": 0,
+    "leaveBalance": 3,
+    "paymentHistory": [
+      { "date": "2026-05-09", "amount": 4800, "note": "Weekly wage" },
+      { "date": "2026-05-02", "amount": 2500, "note": "Advance + wage" }
+    ],
+    "northIndian": true
+  },
+  {
+    "id": "EMP005",
+    "employeeName": "S. Mahesh",
+    "employeeCode": "SC005",
+    "mobileNumber": "+91 98880 00005",
+    "roleTitle": "Plumber",
+    "category": "Labour Workers",
+    "assignedBuildingId": "BLD003",
+    "salaryType": "Weekly",
+    "salaryAmount": 5000,
+    "attendance": { "present": 19, "absent": 4, "halfDay": 2, "todayStatus": "Absent" },
+    "leaveUsed": 4,
+    "extraLeave": 2,
+    "leaveBalance": 0,
+    "paymentHistory": [
+      { "date": "2026-05-09", "amount": 5000, "note": "Weekly payout" }
+    ],
+    "northIndian": false
+  },
+  {
+    "id": "EMP006",
+    "employeeName": "K. Ravi",
+    "employeeCode": "SC006",
+    "mobileNumber": "+91 98880 00006",
+    "roleTitle": "Site Helper",
+    "category": "Labour Workers",
+    "assignedBuildingId": "BLD001",
+    "salaryType": "Weekly",
+    "salaryAmount": 3800,
+    "attendance": { "present": 22, "absent": 2, "halfDay": 0, "todayStatus": "Present" },
+    "leaveUsed": 2,
+    "extraLeave": 0,
+    "leaveBalance": 2,
+    "paymentHistory": [
+      { "date": "2026-05-09", "amount": 3800, "note": "Weekly wage" }
+    ],
+    "northIndian": false
+  }
+]

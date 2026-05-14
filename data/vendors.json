@@ -1,0 +1,53 @@
+[
+  {
+    "id": "VND001",
+    "vendorName": "Chennai Cement Traders",
+    "phone": "+91 94444 77771",
+    "materialType": "Cement / Sand",
+    "paymentPending": 118000,
+    "totalPurchase": 686000,
+    "paymentHistory": [
+      { "date": "2026-05-08", "amount": 75600, "note": "Cement batch paid" },
+      { "date": "2026-05-03", "amount": 203000, "note": "Sand payment paid" }
+    ],
+    "gstNumber": "33ABCDE1234F1Z5",
+    "address": "GST Road, Chennai"
+  },
+  {
+    "id": "VND002",
+    "vendorName": "Metro Steel House",
+    "phone": "+91 94444 77772",
+    "materialType": "Steel / Welding",
+    "paymentPending": 243250,
+    "totalPurchase": 420000,
+    "paymentHistory": [
+      { "date": "2026-04-20", "amount": 176750, "note": "Advance payment" }
+    ],
+    "gstNumber": "33ABCDE1234F1Z6",
+    "address": "Poonamallee High Road, Chennai"
+  },
+  {
+    "id": "VND003",
+    "vendorName": "Classic Tiles Point",
+    "phone": "+91 94444 77773",
+    "materialType": "Tiles / Granite",
+    "paymentPending": 24000,
+    "totalPurchase": 128000,
+    "paymentHistory": [
+      { "date": "2026-05-07", "amount": 40600, "note": "First part paid" }
+    ],
+    "gstNumber": "33ABCDE1234F1Z7",
+    "address": "Velachery, Chennai"
+  },
+  {
+    "id": "VND004",
+    "vendorName": "Power Mart",
+    "phone": "+91 94444 77774",
+    "materialType": "Electrical Materials",
+    "paymentPending": 86000,
+    "totalPurchase": 86000,
+    "paymentHistory": [],
+    "gstNumber": "33ABCDE1234F1Z8",
+    "address": "Tambaram East, Chennai"
+  }
+]

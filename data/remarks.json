@@ -1,0 +1,9 @@
+[
+  { "id": "RMK001", "module": "dashboard", "referenceId": "home", "authorRole": "overallAdmin", "date": "2026-05-12", "text": "Client payments are healthy this month." },
+  { "id": "RMK002", "module": "lands", "referenceId": "LAND001", "authorRole": "overallAdmin", "date": "2026-05-11", "text": "Need final RERA follow-up next week." },
+  { "id": "RMK003", "module": "buildings", "referenceId": "BLD001", "authorRole": "leadManager", "date": "2026-05-12", "text": "Painting team can finish in two days." },
+  { "id": "RMK004", "module": "employees", "referenceId": "EMP004", "authorRole": "paymentManager", "date": "2026-05-09", "text": "Weekly wage updated with advance note." },
+  { "id": "RMK005", "module": "materials", "referenceId": "MAT002", "authorRole": "leadManager", "date": "2026-05-10", "text": "Steel stock enough for 5 more days." },
+  { "id": "RMK006", "module": "vendors", "referenceId": "VND002", "authorRole": "paymentManager", "date": "2026-05-12", "text": "Vendor requested payment before Friday." },
+  { "id": "RMK007", "module": "payments", "referenceId": "PAY003", "authorRole": "paymentManager", "date": "2026-05-12", "text": "Pending until client balance arrives." }
+]

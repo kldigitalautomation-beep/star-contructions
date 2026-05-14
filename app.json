@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Star Constructions",
+    "slug": "starcontructions",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#163A7C",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#163A7C"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "icon": "./assets/icon.png",
+      "backgroundColor": "#163A7C"
+    },
+    "android": {
+      "icon": "./assets/icon.png",
+      "backgroundColor": "#163A7C",
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/icon.png",
+      "backgroundColor": "#163A7C"
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icon.png",
+          "imageWidth": 260,
+          "resizeMode": "contain",
+          "backgroundColor": "#163A7C"
+        }
+      ],
+      "expo-router",
+      "expo-font"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "3baf2dfc-86e3-48bb-92e2-1ea78c9a8383"
+      }
+    }
+  }
+}

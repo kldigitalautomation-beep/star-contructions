@@ -1,0 +1,180 @@
+[
+  {
+    "id": "LAND001",
+    "landName": "Blue Valley Layout",
+    "location": "Kanchipuram",
+    "totalArea": "4.6 Acres",
+    "surveyNumber": "112/4A",
+    "ownerName": "R. Kannan",
+    "brokerDetails": "Selvam Broker - +91 94444 12012",
+    "purchaseAmount": 4200000,
+    "registrationDetails": "Registered on 2025-09-14, Doc No 4421",
+    "approvalStatus": "DTCP Approved",
+    "layoutPdfName": "blue-valley-layout.pdf",
+    "plotDetails": [
+      { "plotNumber": "A-01", "plotSize": "1200 Sq.ft", "status": "Sold" },
+      { "plotNumber": "A-02", "plotSize": "1350 Sq.ft", "status": "Reserved" },
+      { "plotNumber": "B-07", "plotSize": "1500 Sq.ft", "status": "Available" }
+    ],
+    "plotSales": [
+      {
+        "id": "SALE001",
+        "buyerName": "V. Priyanka",
+        "buyerPhoneNumber": "+91 98888 76543",
+        "plotNumber": "A-01",
+        "plotSize": "1200 Sq.ft",
+        "saleAmount": 1650000,
+        "advanceAmount": 450000,
+        "balanceAmount": 1200000,
+        "paymentHistory": [
+          { "date": "2026-01-12", "amount": 200000, "note": "Token advance" },
+          { "date": "2026-02-08", "amount": 250000, "note": "Second advance" }
+        ],
+        "registrationDate": "2026-05-28",
+        "brokerCommission": 45000,
+        "agreementCopyPdf": "sale-agreement-a01.pdf",
+        "paymentStatus": "Pending Balance",
+        "landApprovalDetails": "Legal opinion clear and registration ready"
+      }
+    ],
+    "expenses": [
+      { "name": "Cleaning", "amount": 85000 },
+      { "name": "JCB Charges", "amount": 62000 },
+      { "name": "Dozer Charges", "amount": 50000 },
+      { "name": "EB Work", "amount": 97000 },
+      { "name": "Compound Work", "amount": 188000 },
+      { "name": "Plot Stone", "amount": 35000 },
+      { "name": "Road Work", "amount": 256000 },
+      { "name": "Marketing Expenses", "amount": 76000 },
+      { "name": "Labour Charges", "amount": 64000 },
+      { "name": "Freight Charges", "amount": 19000 }
+    ],
+    "remarks": ["Broker expects closure this week", "Road work 80% completed"],
+    "approvals": {
+      "DTCP Approval": { "status": "Approved", "date": "2025-10-04", "amount": 125000, "remarks": "Approved with final drawing", "pdfName": "dtcp-blue-valley.pdf" },
+      "Local Body Approval": { "status": "Approved", "date": "2025-10-19", "amount": 50000, "remarks": "No objections", "pdfName": "local-body-blue-valley.pdf" },
+      "RERA Approval": { "status": "Pending", "date": "2026-06-10", "amount": 30000, "remarks": "Expected next month", "pdfName": "rera-application.pdf" },
+      "Legal Opinion": { "status": "Approved", "date": "2025-09-18", "amount": 25000, "remarks": "Clear title", "pdfName": "legal-opinion.pdf" },
+      "Registration Status": { "status": "Partially Registered", "date": "2026-01-15", "amount": 0, "remarks": "One plot sold and ready", "pdfName": "registration-notes.pdf" },
+      "Document Number": { "status": "4421", "date": "2025-09-14", "amount": 0, "remarks": "Main land registration", "pdfName": "land-reg-4421.pdf" },
+      "Previous Document Details": { "status": "Doc 120/2018", "date": "2018-08-09", "amount": 0, "remarks": "Previous owner document", "pdfName": "previous-document.pdf" }
+    },
+    "maintenance": {
+      "plotCleaning": "Done",
+      "compoundStatus": "Completed on north side",
+      "ebStatus": "Pole shifting pending",
+      "roadStatus": "Main internal road done",
+      "securityDetails": "Night watchman assigned",
+      "waterConnection": "Bore ready",
+      "drainage": "Planning stage"
+    },
+    "landSaleDetails": "12 plots, 3 sold, 2 reserved, balance 7 open"
+  },
+  {
+    "id": "LAND002",
+    "landName": "Lake View Garden",
+    "location": "Madurantakam",
+    "totalArea": "3.1 Acres",
+    "surveyNumber": "54/2C",
+    "ownerName": "A. Valli",
+    "brokerDetails": "Murugan Estates - +91 93333 55443",
+    "purchaseAmount": 2850000,
+    "registrationDetails": "Registration under process",
+    "approvalStatus": "Local Approval Pending",
+    "layoutPdfName": "lake-view-layout.pdf",
+    "plotDetails": [
+      { "plotNumber": "C-03", "plotSize": "1000 Sq.ft", "status": "Available" },
+      { "plotNumber": "C-04", "plotSize": "1200 Sq.ft", "status": "Available" },
+      { "plotNumber": "D-01", "plotSize": "1500 Sq.ft", "status": "Reserved" }
+    ],
+    "plotSales": [
+      {
+        "id": "SALE002",
+        "buyerName": "S. Dinesh",
+        "buyerPhoneNumber": "+91 97777 22010",
+        "plotNumber": "D-01",
+        "plotSize": "1500 Sq.ft",
+        "saleAmount": 1750000,
+        "advanceAmount": 175000,
+        "balanceAmount": 1575000,
+        "paymentHistory": [
+          { "date": "2026-03-04", "amount": 175000, "note": "Advance paid" }
+        ],
+        "registrationDate": "2026-06-18",
+        "brokerCommission": 35000,
+        "agreementCopyPdf": "d01-agreement.pdf",
+        "paymentStatus": "Advance Received",
+        "landApprovalDetails": "Waiting for local body final note"
+      }
+    ],
+    "expenses": [
+      { "name": "Cleaning", "amount": 42000 },
+      { "name": "JCB Charges", "amount": 38000 },
+      { "name": "EB Work", "amount": 22000 },
+      { "name": "Road Work", "amount": 144000 },
+      { "name": "Marketing Expenses", "amount": 28000 },
+      { "name": "Labour Charges", "amount": 32000 }
+    ],
+    "remarks": ["Boundary stone work in progress"],
+    "approvals": {
+      "DTCP Approval": { "status": "Submitted", "date": "2026-02-21", "amount": 95000, "remarks": "Awaiting review", "pdfName": "dtcp-submission.pdf" },
+      "Local Body Approval": { "status": "Pending", "date": "2026-05-20", "amount": 20000, "remarks": "Meeting scheduled", "pdfName": "local-body-pending.pdf" },
+      "RERA Approval": { "status": "Not Required", "date": "2026-01-01", "amount": 0, "remarks": "Phase not launched", "pdfName": "na.pdf" },
+      "Legal Opinion": { "status": "Approved", "date": "2026-01-10", "amount": 18000, "remarks": "Clear chain documents", "pdfName": "legal-clearance.pdf" },
+      "Registration Status": { "status": "Pending", "date": "2026-06-18", "amount": 0, "remarks": "Registration planned after approval", "pdfName": "registration-pending.pdf" },
+      "Document Number": { "status": "To be assigned", "date": "2026-06-18", "amount": 0, "remarks": "Awaiting registration", "pdfName": "document-pending.pdf" },
+      "Previous Document Details": { "status": "Doc 88/2020", "date": "2020-06-18", "amount": 0, "remarks": "Parent deed", "pdfName": "parent-deed.pdf" }
+    },
+    "maintenance": {
+      "plotCleaning": "Started",
+      "compoundStatus": "Not started",
+      "ebStatus": "Applied",
+      "roadStatus": "Marking completed",
+      "securityDetails": "Temporary watch shed ready",
+      "waterConnection": "Pending",
+      "drainage": "Pending"
+    },
+    "landSaleDetails": "8 plots, 1 reserved, 7 open"
+  },
+  {
+    "id": "LAND003",
+    "landName": "Green Court Parcel",
+    "location": "Vandalur",
+    "totalArea": "1.9 Acres",
+    "surveyNumber": "88/7B",
+    "ownerName": "P. Meena",
+    "brokerDetails": "Vetri Realty - +91 95555 44000",
+    "purchaseAmount": 3100000,
+    "registrationDetails": "Registered on 2025-12-06, Doc No 991",
+    "approvalStatus": "Layout Registered",
+    "layoutPdfName": "green-court-layout.pdf",
+    "plotDetails": [
+      { "plotNumber": "Site-A", "plotSize": "5400 Sq.ft", "status": "Building Construction" },
+      { "plotNumber": "Site-B", "plotSize": "1800 Sq.ft", "status": "Future Block" }
+    ],
+    "plotSales": [],
+    "expenses": [
+      { "name": "Boundary Marking", "amount": 42000 },
+      { "name": "Leveling Work", "amount": 68000 },
+      { "name": "Access Road", "amount": 125000 },
+      { "name": "Drainage Prep", "amount": 53000 }
+    ],
+    "remarks": ["Apartment parcel handed over for Green Court construction", "Compound wall work pending on east side"],
+    "approvals": {
+      "Layout Approval": { "status": "Approved", "date": "2025-11-12", "amount": 45000, "remarks": "Approved for apartment use", "pdfName": "layout-green-court.pdf" },
+      "Registration Status": { "status": "Registered", "date": "2025-12-06", "amount": 0, "remarks": "Parent parcel registered", "pdfName": "green-court-registration.pdf" },
+      "Legal Opinion": { "status": "Approved", "date": "2025-11-20", "amount": 18000, "remarks": "Clear documents", "pdfName": "green-court-legal.pdf" },
+      "Utility Clearance": { "status": "Pending", "date": "2026-05-24", "amount": 12000, "remarks": "Awaiting EB sign-off", "pdfName": "green-court-utility.pdf" }
+    },
+    "maintenance": {
+      "plotCleaning": "Completed",
+      "compoundStatus": "South and west side complete",
+      "ebStatus": "Temporary power connected",
+      "roadStatus": "Approach road laid",
+      "securityDetails": "Day security available",
+      "waterConnection": "Borewell active",
+      "drainage": "Storm water line in progress"
+    },
+    "landSaleDetails": "Parcel reserved for Green Court apartment construction"
+  }
+]
