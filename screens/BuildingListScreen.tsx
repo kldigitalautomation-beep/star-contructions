@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
@@ -7,11 +8,13 @@ import { InfoCard } from '../components/InfoCard';
 import { ProgressBar } from '../components/ProgressBar';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 
 export function BuildingListScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, buildings, hasAccess, addDemoBuilding } = useAppData();
 
   const openBuilding = (buildingId: string) => {
@@ -55,13 +58,13 @@ export function BuildingListScreen() {
                 <ProgressBar label="Construction progress" value={item.constructionProgress} />
                 <View style={styles.metricsRow}>
                   <View style={styles.metricChip}>
-                    <Ionicons color={theme.colors.textLight} name="trending-down-outline" size={13} />
+                    <Ionicons color={theme.colors.textMuted} name="trending-down-outline" size={13} />
                     <Text style={styles.metricLabel}>Expense</Text>
                     <Text style={styles.metricValue}>{formatCurrency(item.totalExpense)}</Text>
                   </View>
                   <View style={styles.metricDivider} />
                   <View style={styles.metricChip}>
-                    <Ionicons color={theme.colors.textLight} name="trending-up-outline" size={13} />
+                    <Ionicons color={theme.colors.textMuted} name="trending-up-outline" size={13} />
                     <Text style={styles.metricLabel}>Received</Text>
                     <Text style={styles.metricValue}>{formatCurrency(item.totalReceivedPayment)}</Text>
                   </View>
@@ -84,7 +87,7 @@ export function BuildingListScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -92,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
   },
   cardPressed: {
-    opacity: 0.92,
+    opacity: theme.isDark ? 0.96 : 0.92,
     transform: [{ scale: 0.994 }],
   },
   list: {
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
   },
   metricLabel: {
     fontSize: theme.typography.micro,
-    color: theme.colors.textLight,
+    color: theme.colors.textMuted,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.5,
@@ -134,4 +137,4 @@ const styles = StyleSheet.create({
     letterSpacing: -0.2,
     textAlign: 'center',
   },
-});
+}); }

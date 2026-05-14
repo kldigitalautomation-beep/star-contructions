@@ -1,27 +1,29 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, Tabs } from 'expo-router';
+import { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { theme } from '../../styles/theme';
+import { type AppTheme, useAppTheme } from '../../utils/themeContext';
 import { useAppData } from '../../utils/appState';
 
 export default function TabsLayout() {
   const { currentUser, hasAccess } = useAppData();
+  const { theme } = useAppTheme();
   const insets = useSafeAreaInsets();
 
   if (!currentUser) {
     return <Redirect href="/login" />;
   }
 
-  const tabBarHeight = 64 + insets.bottom;
-  const tabBarBottom = insets.bottom > 0 ? 10 : 14;
+  const tabBarHeight = 66 + insets.bottom;
+  const tabBarBottom = insets.bottom > 0 ? 12 : 16;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: theme.brand.navy,
-        tabBarInactiveTintColor: theme.colors.textLight,
+        tabBarActiveTintColor: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
+        tabBarInactiveTintColor: theme.isDark ? theme.colors.textMuted : theme.colors.textLight,
         tabBarShowLabel: true,
         tabBarStyle: {
           position: 'absolute',
@@ -31,27 +33,27 @@ export default function TabsLayout() {
           height: tabBarHeight,
           paddingBottom: insets.bottom > 0 ? insets.bottom : 10,
           paddingTop: 8,
-          paddingHorizontal: 6,
+          paddingHorizontal: 4,
           backgroundColor: theme.colors.tabBar,
           borderTopWidth: 0,
           borderRadius: theme.radius.xl,
           overflow: 'hidden',
-          borderWidth: 1,
+          borderWidth: 1.5,
           borderColor: theme.colors.tabBarBorder,
-          ...theme.shadow.md,
+          ...theme.shadow.lg,
         },
         tabBarLabelStyle: {
           fontSize: 10,
           fontWeight: '800',
-          letterSpacing: 0.2,
-          marginBottom: 2,
+          letterSpacing: 0.3,
+          marginBottom: 1,
         },
         tabBarIconStyle: {
           marginTop: 1,
         },
         tabBarItemStyle: {
           borderRadius: theme.radius.md,
-          marginHorizontal: 1,
+          marginHorizontal: 2,
         },
       }}
     >
@@ -60,7 +62,7 @@ export default function TabsLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon color={color} focused={focused} name="grid" />
+            <TabIcon color={color} focused={focused} name="grid" theme={theme} />
           ),
         }}
       />
@@ -70,7 +72,7 @@ export default function TabsLayout() {
           title: 'Lands',
           href: hasAccess('lands') ? undefined : null,
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon color={color} focused={focused} name="map" />
+            <TabIcon color={color} focused={focused} name="map" theme={theme} />
           ),
         }}
       />
@@ -80,7 +82,7 @@ export default function TabsLayout() {
           title: 'Buildings',
           href: hasAccess('buildings') ? undefined : null,
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon color={color} focused={focused} name="business" />
+            <TabIcon color={color} focused={focused} name="business" theme={theme} />
           ),
         }}
       />
@@ -90,7 +92,7 @@ export default function TabsLayout() {
           title: 'People',
           href: hasAccess('employees') ? undefined : null,
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon color={color} focused={focused} name="people" />
+            <TabIcon color={color} focused={focused} name="people" theme={theme} />
           ),
         }}
       />
@@ -99,7 +101,7 @@ export default function TabsLayout() {
         options={{
           title: 'More',
           tabBarIcon: ({ color, focused }) => (
-            <TabIcon color={color} focused={focused} name="ellipsis-horizontal-circle" />
+            <TabIcon color={color} focused={focused} name="ellipsis-horizontal-circle" theme={theme} />
           ),
         }}
       />
@@ -107,39 +109,31 @@ export default function TabsLayout() {
   );
 }
 
-function TabIcon({ name, color, focused }: { name: string; color: string; focused: boolean }) {
+function TabIcon({ name, color, focused, theme }: { name: string; color: string; focused: boolean; theme: AppTheme }) {
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <View style={[styles.iconWrap, focused && styles.iconWrapActive]}>
       <Ionicons
         color={color}
         name={name as keyof typeof Ionicons.glyphMap}
-        size={21}
+        size={22}
       />
-      {focused ? <View style={styles.activeDot} /> : null}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   iconWrap: {
-    width: 38,
+    width: 40,
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: theme.radius.sm,
-    gap: 1,
   },
   iconWrapActive: {
-    backgroundColor: theme.colors.primarySoft,
+    backgroundColor: theme.isDark ? 'rgba(122,170,255,0.18)' : theme.colors.primarySoft,
+    borderRadius: theme.radius.sm,
   },
-  activeDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: theme.brand.gold,
-    position: 'absolute',
-    bottom: 0,
-  },
-});
+}); }
 
 

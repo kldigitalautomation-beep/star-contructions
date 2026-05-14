@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -6,12 +7,14 @@ import { EmptyState } from '../components/EmptyState';
 import { InfoCard } from '../components/InfoCard';
 import { RemarksSection } from '../components/RemarksSection';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 import { getVisibleVendors } from '../utils/visibility';
 
 export function VendorsScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, hasAccess, vendors } = useAppData();
 
   if (!currentUser) {
@@ -68,7 +71,7 @@ export function VendorsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -97,4 +100,4 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: theme.spacing.sm,
   },
-});
+}); }

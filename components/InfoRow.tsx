@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface InfoRowProps {
   label: string;
@@ -7,6 +8,8 @@ interface InfoRowProps {
 }
 
 export function InfoRow({ label, value }: InfoRowProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <View style={styles.row}>
       <Text style={styles.label} numberOfLines={1}>{label}</Text>
@@ -15,7 +18,7 @@ export function InfoRow({ label, value }: InfoRowProps) {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -34,8 +37,8 @@ const styles = StyleSheet.create({
   value: {
     flex: 1.5,
     fontSize: theme.typography.body,
-    color: theme.colors.textSecondary,
+    color: theme.colors.text,
     fontWeight: '700',
     textAlign: 'right',
   },
-});
+}); }

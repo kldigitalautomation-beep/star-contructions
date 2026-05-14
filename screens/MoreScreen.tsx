@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router } from 'expo-router';
 import { StyleSheet, Text, View } from 'react-native';
@@ -7,10 +8,13 @@ import { MenuTile } from '../components/MenuTile';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { StatusPill } from '../components/StatusPill';
 import { moreMenuItems, roleDescriptions, roleLabels } from '../navigation/accessMap';
-import { roleAccent, theme } from '../styles/theme';
+import { roleAccent } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 
 export function MoreScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, hasAccess, logout } = useAppData();
 
   if (!currentUser) {
@@ -23,8 +27,8 @@ export function MoreScreen() {
     <ScreenContainer title="More Modules" subtitle="Open the extra pages that match this login role.">
       <InfoCard title={currentUser.name} subtitle={currentUser.email}>
         <View style={styles.profileRow}>
-          <View style={[styles.profileAvatar, { backgroundColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + '22', borderColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + '44' }]}>
-            <Ionicons color={roleAccent[currentUser.role] ?? theme.colors.primary} name="person" size={22} />
+          <View style={[styles.profileAvatar, { backgroundColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + (theme.isDark ? '28' : '18'), borderColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + (theme.isDark ? '55' : '38') }]}>
+            <Ionicons color={roleAccent[currentUser.role] ?? theme.colors.primary} name="person" size={24} />
           </View>
           <View style={styles.profileInfo}>
             <StatusPill status={roleLabels[currentUser.role]} />
@@ -53,24 +57,24 @@ export function MoreScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   profileRow: {
     flexDirection: 'row',
     gap: theme.spacing.sm,
     alignItems: 'flex-start',
   },
   profileAvatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
+    borderWidth: 2,
     flexShrink: 0,
   },
   profileInfo: {
     flex: 1,
-    gap: 6,
+    gap: 7,
   },
   description: {
     fontSize: theme.typography.small,
@@ -80,4 +84,4 @@ const styles = StyleSheet.create({
   menuList: {
     gap: theme.spacing.sm,
   },
-});
+}); }

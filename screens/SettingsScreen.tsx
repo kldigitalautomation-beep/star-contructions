@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Redirect, router } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -5,10 +6,12 @@ import { AppButton } from '../components/AppButton';
 import { InfoCard } from '../components/InfoCard';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { roleAccess, roleLabels } from '../navigation/accessMap';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 
 export function SettingsScreen() {
+  const { theme, isDark, toggleTheme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, hasAccess, logout, users } = useAppData();
 
   if (!currentUser) {
@@ -45,6 +48,11 @@ export function SettingsScreen() {
 
       <InfoCard title="App Controls" subtitle="Frontend-only controls for the demo app.">
         <View style={styles.buttonGroup}>
+          <AppButton
+            label={isDark ? '☀️  Switch to Light Mode' : '🌙  Switch to Dark Mode'}
+            onPress={toggleTheme}
+            variant="secondary"
+          />
           <AppButton label="Go To Dashboard" onPress={() => router.replace('/(tabs)/dashboard')} />
           <AppButton label="Logout" onPress={() => { logout(); router.replace('/login'); }} variant="outline" />
         </View>
@@ -53,7 +61,7 @@ export function SettingsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   groupBox: {
     borderRadius: theme.radius.md,
     backgroundColor: theme.colors.surfaceVariant,
@@ -80,4 +88,4 @@ const styles = StyleSheet.create({
   buttonGroup: {
     gap: theme.spacing.sm,
   },
-});
+}); }

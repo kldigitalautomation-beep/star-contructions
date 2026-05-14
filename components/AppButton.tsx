@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'danger' | 'accent';
 type ButtonSize = 'sm' | 'md' | 'lg';
@@ -16,6 +17,8 @@ interface AppButtonProps {
 }
 
 export function AppButton({ label, onPress, variant = 'primary', size = 'md', disabled = false, icon, fullWidth = true }: AppButtonProps) {
+  const { theme } = useAppTheme();
+  const { styles, sizeStyles } = useMemo(() => makeStyles(theme), [theme]);
   const content = (
     <>
       {icon ? <View style={styles.iconWrap}>{icon}</View> : null}
@@ -73,7 +76,8 @@ export function AppButton({ label, onPress, variant = 'primary', size = 'md', di
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) {
+  const styles = StyleSheet.create({
   button: {
     borderRadius: theme.radius.md,
     overflow: 'hidden',
@@ -108,20 +112,20 @@ const styles = StyleSheet.create({
     ...theme.control.shadow.sm,
   },
   secondaryFill: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.isDark ? theme.colors.surfaceElevated : theme.colors.surface,
     borderWidth: 1.5,
-    borderColor: theme.brand.navy,
+    borderColor: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
   },
   outlineFill: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.isDark ? 'rgba(122,170,255,0.12)' : 'transparent',
     borderWidth: 1.5,
-    borderColor: theme.brand.navy,
+    borderColor: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
   },
   text: {
     fontSize: theme.typography.body,
     fontWeight: '800',
-    color: theme.colors.textInverse,
-    letterSpacing: 0.1,
+    color: '#FFFFFF',
+    letterSpacing: 0.2,
   },
   textSm: {
     fontSize: theme.typography.small,
@@ -130,13 +134,13 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.subtitle,
   },
   textSecondary: {
-    color: theme.brand.navy,
+    color: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
   },
   textOutline: {
-    color: theme.brand.navy,
+    color: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
   },
   textDanger: {
-    color: theme.colors.textInverse,
+    color: '#FFFFFF',
   },
   textAccent: {
     color: '#FFFFFF',
@@ -146,25 +150,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   pressed: {
-    opacity: 0.88,
+    opacity: theme.isDark ? 0.94 : 0.86,
     transform: [{ scale: 0.97 }],
   },
   disabled: {
-    opacity: 0.45,
+    opacity: theme.isDark ? 0.55 : 0.42,
   },
 });
 
-const sizeStyles = StyleSheet.create({
-  sm: {
-    minHeight: 40,
-    paddingHorizontal: 14,
-  },
-  md: {
-    minHeight: 50,
-    paddingHorizontal: theme.spacing.md,
-  },
-  lg: {
-    minHeight: 56,
-    paddingHorizontal: theme.spacing.lg,
-  },
-});
+  const sizeStyles = StyleSheet.create({
+    sm: { minHeight: 40, paddingHorizontal: 14 },
+    md: { minHeight: 50, paddingHorizontal: 18 },
+    lg: { minHeight: 56, paddingHorizontal: 24 },
+  });
+
+  return { styles, sizeStyles };
+}

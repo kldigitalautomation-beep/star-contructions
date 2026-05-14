@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface BarItem {
   label: string;
@@ -10,16 +11,17 @@ interface SimpleBarChartProps {
   items: BarItem[];
 }
 
-const BAR_COLORS = [
-  theme.brand.navy,
-  theme.colors.success,
-  theme.brand.gold,
-  theme.colors.info,
-  '#7C3AED',
-  '#DB2777',
-];
-
 export function SimpleBarChart({ items }: SimpleBarChartProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
+  const BAR_COLORS = [
+    theme.colors.primary,
+    theme.colors.success,
+    theme.brand.gold,
+    theme.colors.info,
+    '#7C3AED',
+    '#DB2777',
+  ];
   const highest = Math.max(...items.map((item) => item.value), 1);
 
   return (
@@ -42,35 +44,35 @@ export function SimpleBarChart({ items }: SimpleBarChartProps) {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   chart: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
     gap: 8,
-    height: 176,
+    height: 180,
   },
   column: {
     flex: 1,
     alignItems: 'center',
-    gap: 6,
+    gap: 5,
   },
   barWrapper: {
     flex: 1,
     width: '100%',
     justifyContent: 'flex-end',
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : theme.colors.backgroundAlt,
     borderRadius: theme.radius.sm,
     overflow: 'hidden',
   },
   bar: {
     width: '100%',
     borderRadius: theme.radius.sm,
-    opacity: 0.94,
   },
   amount: {
     fontSize: theme.typography.micro,
     fontWeight: '800',
+    color: theme.colors.textSecondary,
   },
   label: {
     fontSize: theme.typography.micro,
@@ -78,4 +80,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '700',
   },
-});
+}); }

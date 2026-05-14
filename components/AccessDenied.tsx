@@ -1,14 +1,17 @@
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { AppButton } from './AppButton';
-import { getAccentCardBorder, theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface AccessDeniedProps {
   title: string;
 }
 
 export function AccessDenied({ title }: AccessDeniedProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <View style={styles.card}>
       <View style={styles.iconWrap}>
@@ -21,12 +24,12 @@ export function AccessDenied({ title }: AccessDeniedProps) {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surfaceElevated,
     borderRadius: theme.radius.xl,
     borderWidth: 1,
-    borderColor: getAccentCardBorder(theme.colors.warning),
+    borderColor: theme.getAccentCardBorder(theme.colors.warning),
     padding: theme.spacing.lg,
     gap: theme.spacing.md,
     alignItems: 'center',
@@ -38,7 +41,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.full,
     backgroundColor: theme.colors.warningSoft,
     borderWidth: 1,
-    borderColor: getAccentCardBorder(theme.colors.warning),
+    borderColor: theme.getAccentCardBorder(theme.colors.warning),
     alignItems: 'center',
     justifyContent: 'center',
     ...theme.card.shadow.sm,
@@ -54,6 +57,6 @@ const styles = StyleSheet.create({
     lineHeight: theme.typography.lineHeightBody,
     color: theme.colors.textSecondary,
     textAlign: 'center',
-    opacity: 0.8,
+    opacity: theme.isDark ? 1 : 0.8,
   },
-});
+}); }

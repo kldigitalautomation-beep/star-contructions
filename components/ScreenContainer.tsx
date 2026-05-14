@@ -1,8 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, useMemo } from 'react';
 import { Image, ScrollView, StyleSheet, Text, View, ViewStyle } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
-import { theme } from '../styles/theme';
+import { LinearGradient } from 'expo-linear-gradient';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface ScreenContainerProps {
   title: string;
@@ -14,6 +15,8 @@ interface ScreenContainerProps {
 }
 
 export function ScreenContainer({ title, subtitle, children, scroll = true, contentStyle, headerRight }: ScreenContainerProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const body = (
     <View style={[styles.content, contentStyle]}>
       {children}
@@ -22,31 +25,35 @@ export function ScreenContainer({ title, subtitle, children, scroll = true, cont
 
   return (
     <View style={styles.background}>
+      <StatusBar style="light" />
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-        <StatusBar style={theme.statusBarStyle} />
-        {/* Header */}
-        <View style={styles.headerOuter}>
-          {/* Navy top accent bar */}
-          <View style={styles.navyTopBar} />
-          {/* Gold left brand strip */}
+        {/* ── Premium Gradient Header ── */}
+        <LinearGradient
+          colors={theme.gradients.screenHeader}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.headerGradient}
+        >
           <View style={styles.headerRow}>
-            <View style={styles.brandStrip} />
-            <View style={styles.header}>
-              <View style={styles.headerLeft}>
+            <View style={styles.headerLeft}>
+              <View style={styles.logoWrap}>
                 <Image
                   source={require('../assets/icon.png')}
                   style={styles.logoMark}
                   resizeMode="contain"
                 />
-                <View style={styles.headerText}>
-                  <Text style={styles.title} numberOfLines={1}>{title}</Text>
-                  {subtitle ? <Text style={styles.subtitle} numberOfLines={1}>{subtitle}</Text> : null}
-                </View>
               </View>
-              {headerRight ? <View style={styles.headerRight}>{headerRight}</View> : null}
+              <View style={styles.headerText}>
+                <Text style={styles.title} numberOfLines={1}>{title}</Text>
+                {subtitle ? <Text style={styles.subtitle} numberOfLines={2}>{subtitle}</Text> : null}
+              </View>
             </View>
+            {headerRight ? <View style={styles.headerRight}>{headerRight}</View> : null}
           </View>
-        </View>
+          {/* Gold accent line at bottom of header */}
+          <View style={styles.goldLine} />
+        </LinearGradient>
+
         {scroll ? (
           <ScrollView
             contentContainerStyle={styles.scrollContent}
@@ -64,7 +71,7 @@ export function ScreenContainer({ title, subtitle, children, scroll = true, cont
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   background: {
     flex: 1,
     backgroundColor: theme.colors.background,
@@ -73,52 +80,45 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'transparent',
   },
-  headerOuter: {
-    backgroundColor: theme.colors.surface,
-    marginHorizontal: theme.spacing.md,
-    marginTop: theme.spacing.sm,
-    borderRadius: theme.radius.lg,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: theme.card.border,
-    ...theme.card.shadow.md,
-  },
-  navyTopBar: {
-    height: 3,
-    backgroundColor: theme.brand.navy,
-    width: '100%',
+  headerGradient: {
+    paddingHorizontal: theme.spacing.md,
+    paddingTop: theme.spacing.md,
+    paddingBottom: 0,
+    ...theme.shadow.md,
   },
   headerRow: {
     flexDirection: 'row',
-  },
-  brandStrip: {
-    width: 4,
-    backgroundColor: theme.brand.gold,
-  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: theme.spacing.md,
-    paddingVertical: theme.spacing.md,
+    paddingBottom: theme.spacing.md,
     gap: theme.spacing.sm,
   },
   headerLeft: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
     minWidth: 0,
   },
+  logoWrap: {
+    width: 44,
+    height: 44,
+    borderRadius: theme.radius.sm,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+    borderWidth: 1.5,
+    borderColor: 'rgba(255,255,255,0.30)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+    overflow: 'hidden',
+  },
   logoMark: {
-    width: 36,
-    height: 36,
-    borderRadius: theme.radius.xs,
+    width: 38,
+    height: 38,
   },
   headerText: {
     flex: 1,
-    gap: 2,
+    gap: 3,
     minWidth: 0,
   },
   headerRight: {
@@ -127,25 +127,32 @@ const styles = StyleSheet.create({
   title: {
     fontSize: theme.typography.subtitle,
     fontWeight: '800',
-    color: theme.colors.text,
-    letterSpacing: -0.4,
-    lineHeight: theme.typography.lineHeightTitle,
+    color: '#FFFFFF',
+    letterSpacing: -0.3,
+    lineHeight: 22,
   },
   subtitle: {
     fontSize: theme.typography.caption,
-    color: theme.colors.textMuted,
-    fontWeight: '600',
+    color: 'rgba(255,255,255,0.75)',
+    fontWeight: '500',
+    lineHeight: 16,
+  },
+  goldLine: {
+    height: 3,
+    backgroundColor: theme.brand.gold,
+    marginHorizontal: -theme.spacing.md,
+    borderRadius: 0,
   },
   scroll: {
     flex: 1,
   },
   scrollContent: {
-    paddingTop: theme.spacing.sm,
+    paddingTop: theme.spacing.md,
     paddingBottom: 120,
   },
   content: {
     paddingHorizontal: theme.spacing.md,
-    paddingTop: theme.spacing.sm,
+    paddingTop: theme.spacing.xs,
     gap: theme.spacing.md,
   },
-});
+}); }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -9,11 +10,14 @@ import { ScreenContainer } from '../components/ScreenContainer';
 import { SimpleBarChart } from '../components/SimpleBarChart';
 import { StatCard } from '../components/StatCard';
 import { moreMenuItems, roleLabels } from '../navigation/accessMap';
-import { roleAccent, theme } from '../styles/theme';
+import { roleAccent } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 
 export function DashboardScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, buildings, lands, employees, materials, payments, hasAccess } = useAppData();
 
   if (!currentUser) {
@@ -52,7 +56,7 @@ export function DashboardScreen() {
         <View style={styles.heroGrid}>
           <View style={styles.heroMetric}>
             <View style={[styles.heroIconWrap, { backgroundColor: theme.colors.primarySoft }]}>
-              <Ionicons color={theme.brand.navy} name="cash-outline" size={16} />
+              <Ionicons color={theme.colors.primary} name="cash-outline" size={16} />
             </View>
             <Text style={styles.heroMetricLabel}>Revenue</Text>
             <Text style={styles.heroMetricValue}>{formatCurrency(totalRevenue)}</Text>
@@ -78,7 +82,7 @@ export function DashboardScreen() {
 
       {/* ── Stat Grid ── */}
       <View style={styles.grid}>
-        <StatCard hint="All project sites" label="Buildings" value={buildings.length} accentColor={theme.brand.navy} />
+        <StatCard hint="All project sites" label="Buildings" value={buildings.length} accentColor={theme.colors.primary} />
         <StatCard hint="Layout and plots" label="Land Records" value={lands.length} accentColor={theme.colors.info} />
         <StatCard hint="In progress now" label="Active" value={activeProjects} accentColor={theme.colors.success} />
         <StatCard hint="Need attention" label="Pending Pay" value={pendingPayments} accentColor={theme.colors.danger} />
@@ -129,17 +133,17 @@ export function DashboardScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   roleBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: theme.colors.primarySoft,
+    backgroundColor: 'rgba(255,255,255,0.18)',
     borderRadius: theme.radius.full,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderWidth: 1,
-    borderColor: theme.colors.primaryMuted,
+    borderColor: 'rgba(255,255,255,0.28)',
   },
   roleIndicator: {
     width: 7,
@@ -149,7 +153,7 @@ const styles = StyleSheet.create({
   roleText: {
     fontSize: theme.typography.caption,
     fontWeight: '700',
-    color: theme.brand.navy,
+    color: '#FFFFFF',
   },
   heroGrid: {
     flexDirection: 'row',
@@ -158,8 +162,8 @@ const styles = StyleSheet.create({
   heroMetric: {
     flex: 1,
     alignItems: 'center',
-    gap: 4,
-    paddingVertical: theme.spacing.xs,
+    gap: 5,
+    paddingVertical: theme.spacing.sm,
   },
   heroDivider: {
     width: 1,
@@ -167,25 +171,25 @@ const styles = StyleSheet.create({
     marginVertical: 4,
   },
   heroIconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 4,
+    marginBottom: 2,
   },
   heroMetricLabel: {
     fontSize: 10,
     fontWeight: '700',
     color: theme.colors.textMuted,
     textTransform: 'uppercase',
-    letterSpacing: 0.6,
+    letterSpacing: 0.8,
   },
   heroMetricValue: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '800',
-    color: theme.brand.navy,
-    letterSpacing: -0.3,
+    color: theme.colors.primary,
+    letterSpacing: -0.4,
   },
   grid: {
     flexDirection: 'row',
@@ -202,7 +206,7 @@ const styles = StyleSheet.create({
     padding: theme.spacing.xs,
   },
   progressPressed: {
-    opacity: 0.82,
+    opacity: theme.isDark ? 0.94 : 0.82,
     transform: [{ scale: 0.983 }],
   },
   progressHeader: {
@@ -219,7 +223,7 @@ const styles = StyleSheet.create({
   },
   progressMeta: {
     fontSize: theme.typography.small,
-    color: theme.brand.navy,
+    color: theme.colors.primary,
     fontWeight: '700',
   },
   quickActions: {
@@ -231,4 +235,4 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     textAlign: 'right',
   },
-});
+}); }

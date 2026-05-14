@@ -2,16 +2,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AppButton } from '../components/AppButton';
 import { roleDescriptions, roleLabels } from '../navigation/accessMap';
-import { getAccentCardBorder, roleAccent, roleAccentSoft, theme } from '../styles/theme';
+import { roleAccent } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import type { DemoUser } from '../utils/types';
 
 export function LoginScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, users, login } = useAppData();
   const [email, setEmail] = useState('admin@test.com');
   const [password, setPassword] = useState('123456');
@@ -78,26 +81,34 @@ export function LoginScreen() {
               <View style={styles.fields}>
                 <View style={styles.field}>
                   <Text style={styles.fieldLabel}>Email Address</Text>
-                  <TextInput
-                    autoCapitalize="none"
-                    keyboardType="email-address"
-                    onChangeText={setEmail}
-                    placeholder="Enter email"
-                    placeholderTextColor={theme.colors.textLight}
-                    style={styles.input}
-                    value={email}
-                  />
+                  <View style={styles.inputWrap}>
+                    <View style={styles.inputIconLeft}>
+                      <Ionicons color={theme.isDark ? theme.colors.primaryLight : theme.colors.primary} name="mail-outline" size={18} />
+                    </View>
+                    <TextInput
+                      autoCapitalize="none"
+                      keyboardType="email-address"
+                      onChangeText={setEmail}
+                      placeholder="Enter email"
+                      placeholderTextColor={theme.isDark ? theme.colors.textMuted : theme.colors.textLight}
+                      style={[styles.input, styles.inputWithLeftIcon]}
+                      value={email}
+                    />
+                  </View>
                 </View>
 
                 <View style={styles.field}>
                   <Text style={styles.fieldLabel}>Password</Text>
                   <View style={styles.inputWrap}>
+                    <View style={styles.inputIconLeft}>
+                      <Ionicons color={theme.isDark ? theme.colors.primaryLight : theme.colors.primary} name="lock-closed-outline" size={18} />
+                    </View>
                     <TextInput
                       onChangeText={setPassword}
                       placeholder="Enter password"
-                      placeholderTextColor={theme.colors.textLight}
+                      placeholderTextColor={theme.isDark ? theme.colors.textMuted : theme.colors.textLight}
                       secureTextEntry={!showPassword}
-                      style={[styles.input, styles.inputWithIcon]}
+                      style={[styles.input, styles.inputWithLeftIcon, styles.inputWithRightIcon]}
                       value={password}
                     />
                     <Pressable
@@ -105,7 +116,7 @@ export function LoginScreen() {
                       style={({ pressed }) => [styles.eyeBtn, pressed ? styles.eyeBtnPressed : undefined]}
                     >
                       <Ionicons
-                        color={theme.colors.textMuted}
+                        color={theme.isDark ? theme.colors.textSecondary : theme.colors.textMuted}
                         name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                         size={20}
                       />
@@ -120,7 +131,7 @@ export function LoginScreen() {
 
           {/* ── Quick Login Card ── */}
           <View style={styles.card}>
-            <View style={[styles.cardTopBar, { backgroundColor: theme.brand.navy }]} />
+            <View style={[styles.cardTopBar, { backgroundColor: theme.colors.primary }]} />
             <View style={styles.cardInner}>
               <Text style={styles.cardTitle}>Quick Login</Text>
               <Text style={styles.cardSubtitle}>Tap a role to instantly enter with demo credentials.</Text>
@@ -138,15 +149,17 @@ export function LoginScreen() {
 }
 
 function QuickLoginCard({ user, onPress }: { user: DemoUser; onPress: () => void }) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const accent = roleAccent[user.role];
-  const accentSoft = roleAccentSoft[user.role];
+  const accentSoft = theme.roleAccentSoft[user.role];
 
   return (
     <Pressable
       onPress={onPress}
       style={({ pressed }) => [
         styles.quickCard,
-        { backgroundColor: accentSoft, borderColor: getAccentCardBorder(accent) },
+        { backgroundColor: accentSoft, borderColor: theme.getAccentCardBorder(accent) },
         pressed ? styles.quickPressed : undefined,
       ]}
     >
@@ -164,7 +177,7 @@ function QuickLoginCard({ user, onPress }: { user: DemoUser; onPress: () => void
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   root: {
     flex: 1,
     backgroundColor: theme.colors.background,
@@ -195,9 +208,9 @@ const styles = StyleSheet.create({
     width: 110,
     height: 110,
     borderRadius: theme.radius.xl,
-    backgroundColor: 'rgba(255,255,255,0.14)',
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.14)',
     borderWidth: 2,
-    borderColor: 'rgba(255,255,255,0.28)',
+    borderColor: theme.isDark ? 'rgba(255,255,255,0.36)' : 'rgba(255,255,255,0.28)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.spacing.sm,
@@ -231,7 +244,7 @@ const styles = StyleSheet.create({
   },
   brandSubtitle: {
     fontSize: theme.typography.caption,
-    color: 'rgba(255,255,255,0.70)',
+    color: theme.isDark ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0.70)',
     textAlign: 'center',
     fontWeight: '600',
     letterSpacing: 0.4,
@@ -243,14 +256,14 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.sm,
     paddingHorizontal: 14,
     paddingVertical: 7,
-    backgroundColor: 'rgba(255,255,255,0.12)',
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.12)',
     borderRadius: theme.radius.full,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.18)',
+    borderColor: theme.isDark ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
   },
   versionText: {
     fontSize: theme.typography.micro,
-    color: 'rgba(255,255,255,0.80)',
+    color: theme.isDark ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.80)',
     fontWeight: '600',
     letterSpacing: 0.3,
   },
@@ -266,12 +279,13 @@ const styles = StyleSheet.create({
     ...theme.card.shadow.md,
   },
   cardTopBar: {
-    height: 3,
+    height: 4,
     backgroundColor: theme.brand.gold,
   },
   cardInner: {
     padding: theme.spacing.md,
-    gap: theme.spacing.sm,
+    paddingTop: theme.spacing.md + 2,
+    gap: theme.spacing.sm + 2,
   },
   cardTitle: {
     fontSize: theme.typography.subtitle,
@@ -287,32 +301,46 @@ const styles = StyleSheet.create({
 
   // ── Form ──
   fields: {
-    gap: theme.spacing.sm,
+    gap: theme.spacing.sm + 2,
     marginBottom: theme.spacing.xs,
   },
   field: {
-    gap: 6,
+    gap: 7,
   },
   fieldLabel: {
     fontSize: theme.typography.small,
     fontWeight: '700',
-    color: theme.colors.textSecondary,
-    letterSpacing: 0.1,
+    color: theme.isDark ? theme.colors.textSecondary : theme.colors.textSecondary,
+    letterSpacing: 0.2,
   },
   input: {
-    height: 50,
+    height: 52,
     borderRadius: theme.radius.md,
     borderWidth: 1.5,
-    borderColor: theme.control.inputBorder,
-    backgroundColor: theme.colors.surfaceVariant,
-    paddingHorizontal: theme.spacing.md,
+    borderColor: theme.isDark ? theme.control.inputBorder : theme.control.inputBorder,
+    backgroundColor: theme.isDark ? theme.colors.inputBg : theme.colors.inputBg,
     fontSize: theme.typography.body,
     color: theme.colors.text,
   },
   inputWrap: {
     position: 'relative',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
-  inputWithIcon: {
+  inputIconLeft: {
+    position: 'absolute',
+    left: 14,
+    zIndex: 1,
+    top: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputWithLeftIcon: {
+    flex: 1,
+    paddingLeft: 46,
+  },
+  inputWithRightIcon: {
     paddingRight: 48,
   },
   eyeBtn: {
@@ -323,9 +351,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 4,
+    zIndex: 1,
   },
   eyeBtnPressed: {
-    opacity: 0.72,
+    opacity: theme.isDark ? 0.92 : 0.70,
   },
 
   // ── Quick Login ──
@@ -342,7 +371,7 @@ const styles = StyleSheet.create({
     ...theme.card.shadow.sm,
   },
   quickPressed: {
-    opacity: 0.85,
+    opacity: theme.isDark ? 0.94 : 0.85,
     transform: [{ scale: 0.984 }],
   },
   roleIconWrap: {
@@ -379,4 +408,4 @@ const styles = StyleSheet.create({
     lineHeight: theme.typography.lineHeightCaption,
     color: theme.colors.textMuted,
   },
-});
+}); }

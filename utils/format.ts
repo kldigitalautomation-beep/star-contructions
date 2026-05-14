@@ -1,4 +1,4 @@
-import { theme } from '../styles/theme';
+import { AppTheme, theme as staticTheme } from '../styles/theme';
 
 export function formatCurrency(amount: number) {
   return new Intl.NumberFormat('en-IN', {
@@ -16,7 +16,7 @@ export function formatShortDate(value: string) {
   }).format(new Date(value));
 }
 
-export function getStatusColors(status: string) {
+export function getStatusColors(status: string, theme: AppTheme = staticTheme) {
   const normalized = status.toLowerCase();
 
   if (normalized.includes('approved') || normalized.includes('paid') || normalized.includes('present') || normalized.includes('done')) {

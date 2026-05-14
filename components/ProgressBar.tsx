@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface ProgressBarProps {
   label: string;
@@ -8,6 +9,8 @@ interface ProgressBarProps {
 }
 
 export function ProgressBar({ label, value, color }: ProgressBarProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const safeValue = Math.max(0, Math.min(100, value));
   const barColor = color ?? (safeValue >= 80 ? theme.colors.success : safeValue >= 40 ? theme.colors.primary : theme.colors.warning);
 
@@ -24,7 +27,7 @@ export function ProgressBar({ label, value, color }: ProgressBarProps) {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   wrapper: {
     gap: 8,
   },
@@ -47,13 +50,13 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   track: {
-    height: 8,
+    height: 10,
     borderRadius: theme.radius.full,
-    backgroundColor: theme.colors.backgroundAlt,
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.10)' : theme.colors.backgroundAlt,
     overflow: 'hidden',
   },
   fill: {
     height: '100%',
     borderRadius: theme.radius.full,
   },
-});
+}); }

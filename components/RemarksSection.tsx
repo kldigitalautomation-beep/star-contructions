@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { AppButton } from './AppButton';
 import { InfoCard } from './InfoCard';
 import { useAppData } from '../utils/appState';
 import { formatShortDate } from '../utils/format';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface RemarksSectionProps {
   module: string;
@@ -13,6 +13,8 @@ interface RemarksSectionProps {
 }
 
 export function RemarksSection({ module, referenceId, title = 'Remarks' }: RemarksSectionProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { remarks, addRemark, currentUser } = useAppData();
   const [text, setText] = useState('');
 
@@ -56,7 +58,7 @@ export function RemarksSection({ module, referenceId, title = 'Remarks' }: Remar
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   list: {
     gap: theme.spacing.sm,
   },
@@ -90,13 +92,13 @@ const styles = StyleSheet.create({
   input: {
     minHeight: 90,
     borderRadius: theme.radius.md,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: theme.control.inputBorder,
-    backgroundColor: theme.colors.surfaceElevated,
+    backgroundColor: theme.colors.inputBg,
     paddingHorizontal: theme.spacing.md,
     paddingVertical: theme.spacing.sm,
     fontSize: theme.typography.body,
     color: theme.colors.text,
     textAlignVertical: 'top',
   },
-});
+}); }

@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface FilterChipsProps {
   options?: Array<{ label: string; value: string }>;
@@ -9,6 +10,8 @@ interface FilterChipsProps {
 }
 
 export function FilterChips({ options, values, selectedValue, onChange }: FilterChipsProps) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const items = options ?? values?.map((value) => ({ label: value, value })) ?? [];
 
   return (
@@ -30,7 +33,7 @@ export function FilterChips({ options, values, selectedValue, onChange }: Filter
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   wrap: {
     gap: theme.spacing.sm,
     paddingRight: theme.spacing.md,
@@ -39,19 +42,19 @@ const styles = StyleSheet.create({
   chip: {
     borderRadius: theme.radius.full,
     borderWidth: 1.5,
-    borderColor: theme.colors.border,
+    borderColor: theme.isDark ? theme.colors.border : theme.colors.borderStrong,
     backgroundColor: theme.colors.surface,
-    paddingHorizontal: 16,
-    paddingVertical: 9,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
   },
   activeChip: {
-    backgroundColor: theme.brand.navy,
-    borderColor: theme.brand.navy,
+    backgroundColor: theme.colors.primary,
+    borderColor: theme.colors.primary,
     ...theme.control.shadow.md,
   },
   pressedChip: {
-    opacity: 0.80,
-    transform: [{ scale: 0.97 }],
+    opacity: theme.isDark ? 0.92 : 0.78,
+    transform: [{ scale: 0.96 }],
   },
   chipText: {
     fontSize: theme.typography.small,
@@ -61,5 +64,6 @@ const styles = StyleSheet.create({
   activeText: {
     color: '#FFFFFF',
     fontWeight: '800',
+    letterSpacing: 0.1,
   },
-});
+}); }

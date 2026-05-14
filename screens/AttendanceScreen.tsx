@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -9,11 +9,13 @@ import { FilterChips } from '../components/FilterChips';
 import { InfoCard } from '../components/InfoCard';
 import { RemarksSection } from '../components/RemarksSection';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { getVisibleBuildings, getVisibleEmployees } from '../utils/visibility';
 
 export function AttendanceScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { buildings, currentUser, employees, hasAccess, updateAttendance } = useAppData();
   const visibleBuildings = getVisibleBuildings(currentUser, buildings);
   const filterValues = ['All', ...visibleBuildings.map((building) => building.id)];
@@ -72,7 +74,7 @@ export function AttendanceScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -98,4 +100,4 @@ const styles = StyleSheet.create({
   buttonGroup: {
     gap: theme.spacing.sm,
   },
-});
+}); }

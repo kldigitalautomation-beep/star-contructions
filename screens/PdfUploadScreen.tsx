@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Alert, Linking, StyleSheet, Text, View } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import { Redirect } from 'expo-router';
@@ -9,12 +9,14 @@ import { FilterChips } from '../components/FilterChips';
 import { InfoCard } from '../components/InfoCard';
 import { RemarksSection } from '../components/RemarksSection';
 import { ScreenContainer } from '../components/ScreenContainer';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 
 const uploadTypes = ['Land Layout', 'Building Plan', 'Agreement', 'Approval', 'Estimate'];
 
 export function PdfUploadScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, hasAccess, saveUpload, uploads } = useAppData();
   const [selectedType, setSelectedType] = useState(uploadTypes[0]);
 
@@ -79,7 +81,7 @@ export function PdfUploadScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   fileRow: {
     borderRadius: theme.radius.md,
     backgroundColor: theme.colors.surfaceVariant,
@@ -101,4 +103,4 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.caption,
     color: theme.colors.textLight,
   },
-});
+}); }

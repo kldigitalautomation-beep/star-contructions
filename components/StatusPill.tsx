@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { getStatusColors } from '../utils/format';
-import { theme } from '../styles/theme';
+import { useAppTheme } from '../utils/themeContext';
 
 interface StatusPillProps {
   status: string;
@@ -8,7 +8,8 @@ interface StatusPillProps {
 }
 
 export function StatusPill({ status, size = 'md' }: StatusPillProps) {
-  const colors = getStatusColors(status);
+  const { theme } = useAppTheme();
+  const colors = getStatusColors(status, theme);
 
   return (
     <View style={[styles.pill, size === 'sm' && styles.pillSm, { backgroundColor: colors.backgroundColor, borderColor: colors.borderColor }]}>

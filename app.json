@@ -22,7 +22,8 @@
       "icon": "./assets/icon.png",
       "backgroundColor": "#163A7C",
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.kannaiya.prasad.starcontructions"
     },
     "web": {
       "favicon": "./assets/icon.png",

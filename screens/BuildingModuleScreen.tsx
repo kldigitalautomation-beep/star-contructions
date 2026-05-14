@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -11,7 +12,7 @@ import { InfoRow } from '../components/InfoRow';
 import { ProgressBar } from '../components/ProgressBar';
 import { RemarksSection } from '../components/RemarksSection';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import {
   type BuildingSectionDefinition,
@@ -135,6 +136,8 @@ function buildEngineerNotes(approvalEntries: ApprovalEntry[]) {
 }
 
 function MetricGrid({ items }: { items: MetricItem[] }) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <View style={styles.metricGrid}>
       {items.map((item) => (
@@ -173,6 +176,8 @@ function NoteListCard({
   emptyTitle: string;
   emptyDescription: string;
 }) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <InfoCard title={title} subtitle={subtitle}>
       {items.length === 0 ? (
@@ -191,6 +196,8 @@ function NoteListCard({
 }
 
 function EmployeeTile({ employee }: { employee: EmployeeRecord }) {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   return (
     <View style={styles.employeeTile}>
       <View style={styles.employeeHeaderRow}>
@@ -211,6 +218,8 @@ function EmployeeTile({ employee }: { employee: EmployeeRecord }) {
 }
 
 export function BuildingModuleScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { buildingId, section } = useLocalSearchParams<{ buildingId: string; section?: string }>();
   const {
     buildings,
@@ -1096,7 +1105,7 @@ export function BuildingModuleScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: theme.colors.background,
@@ -1130,7 +1139,7 @@ const styles = StyleSheet.create({
     borderColor: theme.card.border,
   },
   backButtonPressed: {
-    opacity: 0.82,
+    opacity: theme.isDark ? 0.94 : 0.82,
   },
   backText: {
     fontSize: theme.typography.small,
@@ -1181,7 +1190,7 @@ const styles = StyleSheet.create({
     borderColor: theme.card.accentBorder,
   },
   tabChipPressed: {
-    opacity: 0.82,
+    opacity: theme.isDark ? 0.94 : 0.82,
   },
   tabChipText: {
     fontSize: theme.typography.small,
@@ -1312,4 +1321,4 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.caption,
     color: theme.colors.textSecondary,
   },
-});
+}); }

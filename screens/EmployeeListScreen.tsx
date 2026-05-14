@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Redirect, router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
 import { AccessDenied } from '../components/AccessDenied';
@@ -5,11 +6,13 @@ import { AppButton } from '../components/AppButton';
 import { InfoCard } from '../components/InfoCard';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 
 export function EmployeeListScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, employees, buildings, hasAccess, addDemoEmployee } = useAppData();
 
   if (!currentUser) {
@@ -76,7 +79,7 @@ export function EmployeeListScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: theme.radius.lg,
   },
   cardPressed: {
-    opacity: 0.92,
+    opacity: theme.isDark ? 0.96 : 0.92,
     transform: [{ scale: 0.994 }],
   },
   list: {
@@ -137,4 +140,4 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: 'right',
   },
-});
+}); }

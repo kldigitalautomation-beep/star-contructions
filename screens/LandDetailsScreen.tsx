@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Alert, StyleSheet, Text, TextInput, View } from 'react-native';
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -9,11 +9,13 @@ import { InfoRow } from '../components/InfoRow';
 import { RemarksSection } from '../components/RemarksSection';
 import { ScreenContainer } from '../components/ScreenContainer';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 
 export function LandDetailsScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { id } = useLocalSearchParams<{ id: string }>();
   const { currentUser, lands, hasAccess, updateLand, deleteLand } = useAppData();
   const land = lands.find((entry) => entry.id === id);
@@ -141,13 +143,13 @@ export function LandDetailsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   input: {
     height: 52,
     borderRadius: theme.radius.md,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: theme.control.inputBorder,
-    backgroundColor: theme.colors.surfaceElevated,
+    backgroundColor: theme.colors.inputBg,
     paddingHorizontal: theme.spacing.md,
     fontSize: theme.typography.body,
     color: theme.colors.text,
@@ -166,4 +168,4 @@ const styles = StyleSheet.create({
     paddingLeft: theme.spacing.sm + 2,
     gap: 4,
   },
-});
+}); }

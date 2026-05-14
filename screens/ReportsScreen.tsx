@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -5,11 +6,13 @@ import { AppButton } from '../components/AppButton';
 import { InfoCard } from '../components/InfoCard';
 import { RemarksSection } from '../components/RemarksSection';
 import { ScreenContainer } from '../components/ScreenContainer';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { shareTextReport } from '../utils/reporting';
 
 export function ReportsScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { buildings, currentUser, employees, hasAccess, payments, uploads } = useAppData();
 
   if (!currentUser) {
@@ -91,7 +94,7 @@ export function ReportsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   buttonGroup: {
     gap: theme.spacing.sm,
   },
@@ -101,4 +104,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     paddingVertical: 2,
   },
-});
+}); }

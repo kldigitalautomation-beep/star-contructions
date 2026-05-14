@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { AccessDenied } from '../components/AccessDenied';
@@ -9,12 +9,14 @@ import { FilterChips } from '../components/FilterChips';
 import { InfoCard } from '../components/InfoCard';
 import { RemarksSection } from '../components/RemarksSection';
 import { StatusPill } from '../components/StatusPill';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatCurrency } from '../utils/format';
 import { getVisibleMaterials } from '../utils/visibility';
 
 export function MaterialsScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, hasAccess, materials, updateMaterialPaymentStatus } = useAppData();
   const visibleMaterials = getVisibleMaterials(currentUser, materials);
   const filterValues = ['All', ...Array.from(new Set(visibleMaterials.map((material) => material.buildingId)))];
@@ -107,7 +109,7 @@ export function MaterialsScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   page: {
     flex: 1,
   },
@@ -164,4 +166,4 @@ const styles = StyleSheet.create({
   buttonGroup: {
     gap: theme.spacing.sm,
   },
-});
+}); }

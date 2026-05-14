@@ -1,13 +1,16 @@
+import { useMemo } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { Redirect } from 'expo-router';
 import { EmptyState } from '../components/EmptyState';
 import { InfoCard } from '../components/InfoCard';
 import { ScreenContainer } from '../components/ScreenContainer';
-import { theme } from '../styles/theme';
+import { type AppTheme, useAppTheme } from '../utils/themeContext';
 import { useAppData } from '../utils/appState';
 import { formatShortDate } from '../utils/format';
 
 export function RemarksScreen() {
+  const { theme } = useAppTheme();
+  const styles = useMemo(() => makeStyles(theme), [theme]);
   const { currentUser, remarks } = useAppData();
 
   if (!currentUser) {
@@ -32,7 +35,7 @@ export function RemarksScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+function makeStyles(theme: AppTheme) { return StyleSheet.create({
   content: {
     gap: theme.spacing.sm,
   },
@@ -40,4 +43,4 @@ const styles = StyleSheet.create({
     fontSize: theme.typography.caption,
     color: theme.colors.textMuted,
   },
-});
+}); }
