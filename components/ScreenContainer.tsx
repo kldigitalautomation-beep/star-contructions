@@ -12,9 +12,11 @@ interface ScreenContainerProps {
   scroll?: boolean;
   contentStyle?: ViewStyle;
   headerRight?: ReactNode;
+  /** When provided, renders a greeting-style hero header */
+  greeting?: string;
 }
 
-export function ScreenContainer({ title, subtitle, children, scroll = true, contentStyle, headerRight }: ScreenContainerProps) {
+export function ScreenContainer({ title, subtitle, children, scroll = true, contentStyle, headerRight, greeting }: ScreenContainerProps) {
   const { theme } = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const body = (
@@ -34,22 +36,43 @@ export function ScreenContainer({ title, subtitle, children, scroll = true, cont
           end={{ x: 1, y: 1 }}
           style={styles.headerGradient}
         >
-          <View style={styles.headerRow}>
-            <View style={styles.headerLeft}>
-              <View style={styles.logoWrap}>
-                <Image
-                  source={require('../assets/icon.png')}
-                  style={styles.logoMark}
-                  resizeMode="contain"
-                />
+          {greeting ? (
+            /* Greeting-style dashboard header */
+            <View style={styles.greetingRow}>
+              <View style={styles.greetingLeft}>
+                <View style={styles.logoWrap}>
+                  <Image
+                    source={require('../assets/icon.png')}
+                    style={styles.logoMark}
+                    resizeMode="contain"
+                  />
+                </View>
+                <View style={styles.greetingText}>
+                  <Text style={styles.greetingLine}>{greeting}</Text>
+                  <Text style={styles.greetingSubLine}>{subtitle ?? title}</Text>
+                </View>
               </View>
-              <View style={styles.headerText}>
-                <Text style={styles.title} numberOfLines={1}>{title}</Text>
-                {subtitle ? <Text style={styles.subtitle} numberOfLines={2}>{subtitle}</Text> : null}
-              </View>
+              {headerRight ? <View style={styles.headerRight}>{headerRight}</View> : null}
             </View>
-            {headerRight ? <View style={styles.headerRight}>{headerRight}</View> : null}
-          </View>
+          ) : (
+            /* Standard header */
+            <View style={styles.headerRow}>
+              <View style={styles.headerLeft}>
+                <View style={styles.logoWrap}>
+                  <Image
+                    source={require('../assets/icon.png')}
+                    style={styles.logoMark}
+                    resizeMode="contain"
+                  />
+                </View>
+                <View style={styles.headerText}>
+                  <Text style={styles.title} numberOfLines={1}>{title}</Text>
+                  {subtitle ? <Text style={styles.subtitle} numberOfLines={2}>{subtitle}</Text> : null}
+                </View>
+              </View>
+              {headerRight ? <View style={styles.headerRight}>{headerRight}</View> : null}
+            </View>
+          )}
           {/* Gold accent line at bottom of header */}
           <View style={styles.goldLine} />
         </LinearGradient>
@@ -86,6 +109,7 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     paddingBottom: 0,
     ...theme.shadow.md,
   },
+  // Standard header row
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -100,21 +124,54 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     gap: 12,
     minWidth: 0,
   },
+  // Greeting-style header
+  greetingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingBottom: theme.spacing.md + 2,
+    gap: theme.spacing.sm,
+  },
+  greetingLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    minWidth: 0,
+  },
+  greetingText: {
+    flex: 1,
+    gap: 2,
+    minWidth: 0,
+  },
+  greetingLine: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    letterSpacing: -0.5,
+    lineHeight: 26,
+  },
+  greetingSubLine: {
+    fontSize: theme.typography.small,
+    color: 'rgba(255,255,255,0.72)',
+    fontWeight: '500',
+    lineHeight: 18,
+  },
   logoWrap: {
-    width: 44,
-    height: 44,
-    borderRadius: theme.radius.sm,
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    width: 46,
+    height: 46,
+    borderRadius: theme.radius.md,
+    backgroundColor: 'rgba(255,255,255,0.16)',
     borderWidth: 1.5,
-    borderColor: 'rgba(255,255,255,0.30)',
+    borderColor: 'rgba(255,255,255,0.28)',
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
     overflow: 'hidden',
   },
   logoMark: {
-    width: 38,
-    height: 38,
+    width: 40,
+    height: 40,
   },
   headerText: {
     flex: 1,
@@ -133,7 +190,7 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   subtitle: {
     fontSize: theme.typography.caption,
-    color: 'rgba(255,255,255,0.75)',
+    color: 'rgba(255,255,255,0.72)',
     fontWeight: '500',
     lineHeight: 16,
   },

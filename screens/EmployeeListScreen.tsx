@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Redirect, router } from 'expo-router';
 import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { AccessDenied } from '../components/AccessDenied';
 import { AppButton } from '../components/AppButton';
 import { InfoCard } from '../components/InfoCard';
@@ -51,9 +52,14 @@ export function EmployeeListScreen() {
             >
               <InfoCard subtitle={`${item.roleTitle} • ${item.category}`} title={item.employeeName} rightSlot={<StatusPill status={item.attendance.todayStatus} />}>
                 <View style={styles.empRow}>
-                  <View style={styles.avatar}>
+                  <LinearGradient
+                    colors={theme.isDark ? ['#4B84F0', '#1A3A8F'] : [theme.colors.primary, theme.colors.primaryDark]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.avatar}
+                  >
                     <Text style={styles.avatarText}>{initials}</Text>
-                  </View>
+                  </LinearGradient>
                   <View style={styles.empInfo}>
                     <View style={styles.metaRow}>
                       <Text style={styles.metaLabel}>Code</Text>
@@ -101,20 +107,18 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     alignItems: 'flex-start',
   },
   avatar: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: theme.colors.primarySoft,
-    borderWidth: 1.5,
-    borderColor: theme.colors.primaryMuted,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
+    ...theme.shadow.sm,
   },
   avatarText: {
     fontSize: theme.typography.small,
     fontWeight: '900',
-    color: theme.colors.primary,
+    color: '#FFFFFF',
     letterSpacing: 0.5,
   },
   empInfo: {

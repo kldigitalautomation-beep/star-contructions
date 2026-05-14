@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
 interface FilterChipsProps {
@@ -23,9 +24,22 @@ export function FilterChips({ options, values, selectedValue, onChange }: Filter
           <Pressable
             key={option.value}
             onPress={() => onChange(option.value)}
-            style={({ pressed }) => [styles.chip, active ? styles.activeChip : undefined, pressed && !active ? styles.pressedChip : undefined]}
+            style={({ pressed }) => [styles.chip, !active && pressed ? styles.pressedChip : undefined]}
           >
-            <Text style={[styles.chipText, active ? styles.activeText : undefined]}>{option.label}</Text>
+            {active ? (
+              <LinearGradient
+                colors={theme.isDark ? ['#4B84F0', '#2252B8'] : [theme.colors.primary, theme.colors.primaryDark]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={styles.activeChipGradient}
+              >
+                <Text style={styles.activeText}>{option.label}</Text>
+              </LinearGradient>
+            ) : (
+              <View style={styles.inactiveChip}>
+                <Text style={styles.chipText}>{option.label}</Text>
+              </View>
+            )}
           </Pressable>
         );
       })}
@@ -41,29 +55,35 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   chip: {
     borderRadius: theme.radius.full,
+    overflow: 'hidden',
+  },
+  activeChipGradient: {
+    borderRadius: theme.radius.full,
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    ...theme.control.shadow.md,
+  },
+  inactiveChip: {
+    borderRadius: theme.radius.full,
     borderWidth: 1.5,
-    borderColor: theme.isDark ? theme.colors.border : theme.colors.borderStrong,
+    borderColor: theme.isDark ? 'rgba(255,255,255,0.18)' : theme.colors.border,
     backgroundColor: theme.colors.surface,
     paddingHorizontal: 18,
     paddingVertical: 10,
   },
-  activeChip: {
-    backgroundColor: theme.colors.primary,
-    borderColor: theme.colors.primary,
-    ...theme.control.shadow.md,
-  },
   pressedChip: {
-    opacity: theme.isDark ? 0.92 : 0.78,
+    opacity: theme.isDark ? 0.90 : 0.76,
     transform: [{ scale: 0.96 }],
   },
   chipText: {
     fontSize: theme.typography.small,
     fontWeight: '700',
-    color: theme.colors.textMuted,
+    color: theme.isDark ? theme.colors.textSecondary : theme.colors.textMuted,
   },
   activeText: {
-    color: '#FFFFFF',
+    fontSize: theme.typography.small,
     fontWeight: '800',
-    letterSpacing: 0.1,
+    color: '#FFFFFF',
+    letterSpacing: 0.2,
   },
 }); }

@@ -21,7 +21,10 @@ export function ProgressBar({ label, value, color }: ProgressBarProps) {
         <Text style={[styles.value, { color: barColor }]}>{safeValue}%</Text>
       </View>
       <View style={styles.track}>
-        <View style={[styles.fill, { width: `${safeValue}%`, backgroundColor: barColor }]} />
+        <View style={[styles.fill, { width: `${safeValue}%`, backgroundColor: barColor }]}>
+          {/* Inner shine */}
+          <View style={styles.shine} />
+        </View>
       </View>
     </View>
   );
@@ -50,13 +53,24 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     textAlign: 'right',
   },
   track: {
-    height: 10,
+    height: 8,
     borderRadius: theme.radius.full,
     backgroundColor: theme.isDark ? 'rgba(255,255,255,0.10)' : theme.colors.backgroundAlt,
     overflow: 'hidden',
   },
   fill: {
     height: '100%',
+    borderRadius: theme.radius.full,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  shine: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    height: '50%',
+    backgroundColor: 'rgba(255,255,255,0.22)',
     borderRadius: theme.radius.full,
   },
 }); }

@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, router } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View } from 'react-native';
 import { AppButton } from '../components/AppButton';
 import { InfoCard } from '../components/InfoCard';
@@ -22,20 +23,32 @@ export function MoreScreen() {
   }
 
   const allowedMenuItems = moreMenuItems.filter((item) => hasAccess(item.key));
+  const accent = roleAccent[currentUser.role] ?? theme.colors.primary;
 
   return (
     <ScreenContainer title="More Modules" subtitle="Open the extra pages that match this login role.">
-      <InfoCard title={currentUser.name} subtitle={currentUser.email}>
+      {/* ── Premium Profile Card ── */}
+      <LinearGradient
+        colors={theme.isDark
+          ? [`${accent}28`, `${accent}10`, theme.colors.surface]
+          : [`${accent}14`, `${accent}06`, theme.colors.surface]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={[styles.profileCard, { borderColor: `${accent}${theme.isDark ? '28' : '18'}` }]}
+      >
         <View style={styles.profileRow}>
-          <View style={[styles.profileAvatar, { backgroundColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + (theme.isDark ? '28' : '18'), borderColor: (roleAccent[currentUser.role] ?? theme.colors.primary) + (theme.isDark ? '55' : '38') }]}>
-            <Ionicons color={roleAccent[currentUser.role] ?? theme.colors.primary} name="person" size={24} />
+          <View style={[styles.profileAvatar, { backgroundColor: `${accent}${theme.isDark ? '28' : '18'}`, borderColor: `${accent}${theme.isDark ? '50' : '36'}` }]}>
+            <Ionicons color={accent} name="person" size={26} />
           </View>
           <View style={styles.profileInfo}>
+            <Text style={styles.profileName}>{currentUser.name}</Text>
+            <Text style={styles.profileEmail}>{currentUser.email}</Text>
             <StatusPill status={roleLabels[currentUser.role]} />
-            <Text style={styles.description}>{roleDescriptions[currentUser.role]}</Text>
           </View>
         </View>
-      </InfoCard>
+        <View style={[styles.profileDivider, { backgroundColor: `${accent}${theme.isDark ? '20' : '14'}` }]} />
+        <Text style={styles.description}>{roleDescriptions[currentUser.role]}</Text>
+      </LinearGradient>
 
       <View style={styles.menuList}>
         {allowedMenuItems.map((item) => (
@@ -58,23 +71,45 @@ export function MoreScreen() {
 }
 
 function makeStyles(theme: AppTheme) { return StyleSheet.create({
+  profileCard: {
+    borderRadius: theme.radius.xxl,
+    padding: theme.spacing.md,
+    gap: theme.spacing.sm,
+  
+  },
   profileRow: {
     flexDirection: 'row',
-    gap: theme.spacing.sm,
-    alignItems: 'flex-start',
+    gap: theme.spacing.md,
+    alignItems: 'center',
   },
   profileAvatar: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
+    borderWidth: 2.5,
     flexShrink: 0,
   },
   profileInfo: {
     flex: 1,
-    gap: 7,
+    gap: 4,
+  },
+  profileName: {
+    fontSize: theme.typography.subtitle,
+    fontWeight: '800',
+    color: theme.colors.text,
+    letterSpacing: -0.3,
+  },
+  profileEmail: {
+    fontSize: theme.typography.small,
+    color: theme.colors.textMuted,
+    marginBottom: 2,
+  },
+  profileDivider: {
+    height: 1,
+    borderRadius: 1,
+    marginVertical: 2,
   },
   description: {
     fontSize: theme.typography.small,

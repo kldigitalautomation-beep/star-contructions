@@ -79,7 +79,7 @@ export function AppButton({ label, onPress, variant = 'primary', size = 'md', di
 function makeStyles(theme: AppTheme) {
   const styles = StyleSheet.create({
   button: {
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.xl,
     overflow: 'hidden',
   },
   fullWidth: {
@@ -93,8 +93,8 @@ function makeStyles(theme: AppTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    borderRadius: theme.radius.md,
-    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.radius.xl,
+    paddingHorizontal: theme.spacing.lg,
   },
   fillSolid: {
     borderWidth: 0,
@@ -117,21 +117,22 @@ function makeStyles(theme: AppTheme) {
     borderColor: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
   },
   outlineFill: {
-    backgroundColor: theme.isDark ? 'rgba(122,170,255,0.12)' : 'transparent',
+    backgroundColor: theme.isDark ? 'rgba(122,170,255,0.10)' : 'rgba(22,58,124,0.04)',
     borderWidth: 1.5,
-    borderColor: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
+    borderColor: theme.isDark ? 'rgba(122,170,255,0.50)' : theme.colors.primaryMuted,
   },
   text: {
     fontSize: theme.typography.body,
     fontWeight: '800',
     color: '#FFFFFF',
-    letterSpacing: 0.2,
+    letterSpacing: 0.3,
   },
   textSm: {
     fontSize: theme.typography.small,
   },
   textLg: {
     fontSize: theme.typography.subtitle,
+    letterSpacing: 0.4,
   },
   textSecondary: {
     color: theme.isDark ? theme.colors.primaryLight : theme.colors.primary,
@@ -150,11 +151,11 @@ function makeStyles(theme: AppTheme) {
     justifyContent: 'center',
   },
   pressed: {
-    opacity: theme.isDark ? 0.94 : 0.86,
-    transform: [{ scale: 0.97 }],
+    opacity: theme.isDark ? 0.92 : 0.84,
+    transform: [{ scale: 0.96 }],
   },
   disabled: {
-    opacity: theme.isDark ? 0.55 : 0.42,
+    opacity: theme.isDark ? 0.50 : 0.40,
   },
 });
 

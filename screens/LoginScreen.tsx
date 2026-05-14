@@ -50,6 +50,10 @@ export function LoginScreen() {
             end={{ x: 1, y: 1 }}
             style={styles.brandHeader}
           >
+            {/* Decorative circles */}
+            <View style={styles.decorCircle1} />
+            <View style={styles.decorCircle2} />
+
             {/* Logo */}
             <View style={styles.logoContainer}>
               <Image
@@ -73,10 +77,23 @@ export function LoginScreen() {
 
           {/* ── Sign In Card ── */}
           <View style={styles.card}>
-            <View style={styles.cardTopBar} />
+            <LinearGradient
+              colors={theme.gradients.card}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={StyleSheet.absoluteFill}
+            />
+            <View style={[styles.cardTopBar, { backgroundColor: theme.brand.gold }]} />
             <View style={styles.cardInner}>
-              <Text style={styles.cardTitle}>Sign In</Text>
-              <Text style={styles.cardSubtitle}>Enter your demo credentials to access the app.</Text>
+              <View style={styles.cardTitleRow}>
+                <View style={[styles.cardTitleIcon, { backgroundColor: theme.colors.primarySoft }]}>
+                  <Ionicons name="log-in-outline" size={18} color={theme.isDark ? theme.colors.primaryLight : theme.colors.primary} />
+                </View>
+                <View>
+                  <Text style={styles.cardTitle}>Sign In</Text>
+                  <Text style={styles.cardSubtitle}>Enter your credentials to continue</Text>
+                </View>
+              </View>
 
               <View style={styles.fields}>
                 <View style={styles.field}>
@@ -90,7 +107,7 @@ export function LoginScreen() {
                       keyboardType="email-address"
                       onChangeText={setEmail}
                       placeholder="Enter email"
-                      placeholderTextColor={theme.isDark ? theme.colors.textMuted : theme.colors.textLight}
+                      placeholderTextColor={theme.isDark ? theme.colors.textLight : '#B0BECC'}
                       style={[styles.input, styles.inputWithLeftIcon]}
                       value={email}
                     />
@@ -106,7 +123,7 @@ export function LoginScreen() {
                     <TextInput
                       onChangeText={setPassword}
                       placeholder="Enter password"
-                      placeholderTextColor={theme.isDark ? theme.colors.textMuted : theme.colors.textLight}
+                      placeholderTextColor={theme.isDark ? theme.colors.textLight : '#B0BECC'}
                       secureTextEntry={!showPassword}
                       style={[styles.input, styles.inputWithLeftIcon, styles.inputWithRightIcon]}
                       value={password}
@@ -131,10 +148,23 @@ export function LoginScreen() {
 
           {/* ── Quick Login Card ── */}
           <View style={styles.card}>
+            <LinearGradient
+              colors={theme.gradients.card}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 1 }}
+              style={StyleSheet.absoluteFill}
+            />
             <View style={[styles.cardTopBar, { backgroundColor: theme.colors.primary }]} />
             <View style={styles.cardInner}>
-              <Text style={styles.cardTitle}>Quick Login</Text>
-              <Text style={styles.cardSubtitle}>Tap a role to instantly enter with demo credentials.</Text>
+              <View style={styles.cardTitleRow}>
+                <View style={[styles.cardTitleIcon, { backgroundColor: theme.isDark ? 'rgba(122,170,255,0.18)' : theme.colors.primarySoft }]}>
+                  <Ionicons name="flash-outline" size={18} color={theme.isDark ? theme.colors.primaryLight : theme.colors.primary} />
+                </View>
+                <View>
+                  <Text style={styles.cardTitle}>Quick Login</Text>
+                  <Text style={styles.cardSubtitle}>Tap a role to instantly sign in</Text>
+                </View>
+              </View>
               <View style={styles.quickList}>
                 {users.map((user) => (
                   <QuickLoginCard key={user.id} onPress={() => handleLogin(user.email, user.password)} user={user} />
@@ -163,6 +193,12 @@ function QuickLoginCard({ user, onPress }: { user: DemoUser; onPress: () => void
         pressed ? styles.quickPressed : undefined,
       ]}
     >
+      <LinearGradient
+        colors={[`${accent}${theme.isDark ? '22' : '10'}`, 'transparent']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
       <View style={[styles.roleIconWrap, { backgroundColor: accent }]}>
         <Ionicons color="#fff" name="person" size={16} />
       </View>
@@ -172,7 +208,9 @@ function QuickLoginCard({ user, onPress }: { user: DemoUser; onPress: () => void
         <Text style={styles.quickInfo}>{user.email}  ·  {user.password}</Text>
         <Text style={styles.quickDescription}>{roleDescriptions[user.role]}</Text>
       </View>
-      <Ionicons color={accent} name="chevron-forward" size={17} />
+      <View style={[styles.quickArrow, { backgroundColor: `${accent}${theme.isDark ? '28' : '18'}`, borderColor: `${accent}${theme.isDark ? '44' : '28'}` }]}>
+        <Ionicons color={accent} name="chevron-forward" size={15} />
+      </View>
     </Pressable>
   );
 }
@@ -191,7 +229,7 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   content: {
     gap: theme.spacing.md,
-    paddingBottom: theme.spacing.xl + theme.spacing.md,
+    paddingBottom: theme.spacing.xxl,
   },
 
   // ── Brand Header ──
@@ -203,28 +241,48 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     gap: 6,
     borderBottomLeftRadius: theme.radius.xxl,
     borderBottomRightRadius: theme.radius.xxl,
+    overflow: 'hidden',
+    ...theme.shadow.lg,
+  },
+  decorCircle1: {
+    position: 'absolute',
+    top: -50,
+    right: -50,
+    width: 200,
+    height: 200,
+    borderRadius: 100,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+  },
+  decorCircle2: {
+    position: 'absolute',
+    bottom: -30,
+    left: -30,
+    width: 130,
+    height: 130,
+    borderRadius: 65,
+    backgroundColor: 'rgba(255,255,255,0.04)',
   },
   logoContainer: {
-    width: 110,
-    height: 110,
+    width: 116,
+    height: 116,
     borderRadius: theme.radius.xl,
-    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.14)',
+    backgroundColor: 'rgba(255,255,255,0.16)',
     borderWidth: 2,
-    borderColor: theme.isDark ? 'rgba(255,255,255,0.36)' : 'rgba(255,255,255,0.28)',
+    borderColor: 'rgba(255,255,255,0.30)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: theme.spacing.sm,
     ...theme.shadow.md,
   },
   logo: {
-    width: 90,
-    height: 90,
+    width: 96,
+    height: 96,
   },
   brandName: {
     fontSize: 22,
     fontWeight: '900',
     color: '#FFFFFF',
-    letterSpacing: 2,
+    letterSpacing: 2.5,
     textAlign: 'center',
   },
   brandTag: {
@@ -237,17 +295,17 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   goldDivider: {
     width: 60,
-    height: 2.5,
+    height: 3,
     backgroundColor: theme.brand.gold,
     borderRadius: 2,
     marginVertical: theme.spacing.xs,
   },
   brandSubtitle: {
     fontSize: theme.typography.caption,
-    color: theme.isDark ? 'rgba(255,255,255,0.82)' : 'rgba(255,255,255,0.70)',
+    color: 'rgba(255,255,255,0.76)',
     textAlign: 'center',
     fontWeight: '600',
-    letterSpacing: 0.4,
+    letterSpacing: 0.6,
   },
   versionBadge: {
     flexDirection: 'row',
@@ -255,54 +313,66 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     gap: 5,
     marginTop: theme.spacing.sm,
     paddingHorizontal: 14,
-    paddingVertical: 7,
-    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.12)',
+    paddingVertical: 8,
+    backgroundColor: 'rgba(255,255,255,0.14)',
     borderRadius: theme.radius.full,
     borderWidth: 1,
-    borderColor: theme.isDark ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+    borderColor: 'rgba(255,255,255,0.24)',
   },
   versionText: {
     fontSize: theme.typography.micro,
-    color: theme.isDark ? 'rgba(255,255,255,0.92)' : 'rgba(255,255,255,0.80)',
+    color: 'rgba(255,255,255,0.88)',
     fontWeight: '600',
-    letterSpacing: 0.3,
+    letterSpacing: 0.4,
   },
 
   // ── Cards ──
   card: {
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.xl,
+    borderRadius: theme.radius.xxl,
     borderWidth: 1,
     borderColor: theme.card.border,
     overflow: 'hidden',
     marginHorizontal: theme.spacing.md,
-    ...theme.card.shadow.md,
+    ...theme.card.shadow.lg,
   },
   cardTopBar: {
     height: 4,
-    backgroundColor: theme.brand.gold,
   },
   cardInner: {
     padding: theme.spacing.md,
     paddingTop: theme.spacing.md + 2,
-    gap: theme.spacing.sm + 2,
+    gap: theme.spacing.md,
+  },
+  cardTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  cardTitleIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: theme.radius.md,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
   },
   cardTitle: {
     fontSize: theme.typography.subtitle,
     fontWeight: '800',
     color: theme.colors.text,
-    letterSpacing: -0.3,
+    letterSpacing: -0.4,
   },
   cardSubtitle: {
     fontSize: theme.typography.small,
     color: theme.colors.textMuted,
     lineHeight: theme.typography.lineHeightBody,
+    marginTop: 1,
   },
 
   // ── Form ──
   fields: {
     gap: theme.spacing.sm + 2,
-    marginBottom: theme.spacing.xs,
   },
   field: {
     gap: 7,
@@ -310,15 +380,15 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   fieldLabel: {
     fontSize: theme.typography.small,
     fontWeight: '700',
-    color: theme.isDark ? theme.colors.textSecondary : theme.colors.textSecondary,
+    color: theme.colors.textSecondary,
     letterSpacing: 0.2,
   },
   input: {
     height: 52,
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.xl,
     borderWidth: 1.5,
-    borderColor: theme.isDark ? theme.control.inputBorder : theme.control.inputBorder,
-    backgroundColor: theme.isDark ? theme.colors.inputBg : theme.colors.inputBg,
+    borderColor: theme.isDark ? theme.control.inputBorder : '#D0DCEE',
+    backgroundColor: theme.isDark ? theme.colors.inputBg : '#F8FBFF',
     fontSize: theme.typography.body,
     color: theme.colors.text,
   },
@@ -329,7 +399,7 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   inputIconLeft: {
     position: 'absolute',
-    left: 14,
+    left: 16,
     zIndex: 1,
     top: 0,
     bottom: 0,
@@ -338,10 +408,10 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   },
   inputWithLeftIcon: {
     flex: 1,
-    paddingLeft: 46,
+    paddingLeft: 48,
   },
   inputWithRightIcon: {
-    paddingRight: 48,
+    paddingRight: 50,
   },
   eyeBtn: {
     position: 'absolute',
@@ -354,7 +424,7 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     zIndex: 1,
   },
   eyeBtnPressed: {
-    opacity: theme.isDark ? 0.92 : 0.70,
+    opacity: 0.70,
   },
 
   // ── Quick Login ──
@@ -364,23 +434,24 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   quickCard: {
     flexDirection: 'row',
     gap: theme.spacing.sm,
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.xl,
     borderWidth: 1.5,
     padding: theme.spacing.sm + 2,
     alignItems: 'flex-start',
-    ...theme.card.shadow.sm,
+    overflow: 'hidden',
   },
   quickPressed: {
-    opacity: theme.isDark ? 0.94 : 0.85,
-    transform: [{ scale: 0.984 }],
+    opacity: theme.isDark ? 0.92 : 0.84,
+    transform: [{ scale: 0.982 }],
   },
   roleIconWrap: {
-    width: 36,
-    height: 36,
-    borderRadius: theme.radius.sm,
+    width: 38,
+    height: 38,
+    borderRadius: theme.radius.md,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 2,
+    flexShrink: 0,
   },
   quickTextWrap: {
     flex: 1,
@@ -390,22 +461,32 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     fontSize: theme.typography.micro,
     fontWeight: '800',
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    letterSpacing: 1.0,
   },
   quickName: {
     fontSize: theme.typography.body,
     fontWeight: '700',
     color: theme.colors.text,
+    letterSpacing: -0.2,
   },
   quickInfo: {
     fontSize: theme.typography.caption,
     color: theme.colors.textMuted,
-    fontFamily: undefined,
   },
   quickDescription: {
     marginTop: 2,
     fontSize: theme.typography.caption,
     lineHeight: theme.typography.lineHeightCaption,
-    color: theme.colors.textMuted,
+    color: theme.isDark ? theme.colors.textLight : theme.colors.textMuted,
+  },
+  quickArrow: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    flexShrink: 0,
+    alignSelf: 'center',
   },
 }); }

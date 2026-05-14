@@ -20,9 +20,12 @@ export function InfoCard({ title, subtitle, rightSlot, children, accent = false 
       <View style={[styles.topLine, { backgroundColor: accentColor }]} />
       {title || rightSlot ? (
         <View style={styles.header}>
-          <View style={styles.headerText}>
-            {title ? <Text style={styles.title}>{title}</Text> : null}
-            {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+          <View style={styles.headerLeft}>
+            <View style={[styles.headerAccentDot, { backgroundColor: accentColor }]} />
+            <View style={styles.headerText}>
+              {title ? <Text style={styles.title}>{title}</Text> : null}
+              {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+            </View>
           </View>
           {rightSlot ? <View style={styles.rightSlot}>{rightSlot}</View> : null}
         </View>
@@ -35,11 +38,11 @@ export function InfoCard({ title, subtitle, rightSlot, children, accent = false 
 function makeStyles(theme: AppTheme) { return StyleSheet.create({
   card: {
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.xl,
     borderWidth: 1,
     borderColor: theme.card.border,
     overflow: 'hidden',
-    ...theme.card.shadow.sm,
+    ...theme.card.shadow.md,
   },
   cardAccent: {
     borderColor: theme.card.accentBorder,
@@ -58,6 +61,20 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     gap: theme.spacing.sm,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.divider,
+  },
+  headerLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    minWidth: 0,
+  },
+  headerAccentDot: {
+    width: 3,
+    height: '100%',
+    borderRadius: 2,
+    minHeight: 28,
+    flexShrink: 0,
   },
   headerText: {
     flex: 1,

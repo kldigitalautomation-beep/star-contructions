@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Redirect, Tabs } from 'expo-router';
 import { useMemo } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { type AppTheme, useAppTheme } from '../../utils/themeContext';
 import { useAppData } from '../../utils/appState';
+
 
 export default function TabsLayout() {
   const { currentUser, hasAccess } = useAppData();

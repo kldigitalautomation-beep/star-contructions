@@ -106,10 +106,10 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
   metricsRow: {
     flexDirection: 'row',
     gap: 0,
-    borderRadius: theme.radius.sm,
+    borderRadius: theme.radius.md,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: theme.card.sectionBorder,
+    borderColor: theme.isDark ? 'rgba(255,255,255,0.08)' : theme.colors.divider,
   },
   metricChip: {
     flex: 1,
@@ -117,11 +117,11 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     paddingVertical: theme.spacing.sm,
     paddingHorizontal: 4,
     gap: 3,
-    backgroundColor: theme.colors.surfaceVariant,
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.04)' : theme.colors.surfaceVariant,
   },
   metricDivider: {
     width: 1,
-    backgroundColor: theme.card.sectionBorder,
+    backgroundColor: theme.isDark ? 'rgba(255,255,255,0.08)' : theme.colors.divider,
   },
   metricLabel: {
     fontSize: theme.typography.micro,

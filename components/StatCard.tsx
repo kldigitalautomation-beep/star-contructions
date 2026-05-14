@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 import { StyleSheet, Text, View } from 'react-native';
 import { type AppTheme, useAppTheme } from '../utils/themeContext';
 
@@ -13,16 +14,22 @@ export function StatCard({ label, value, hint, accentColor }: StatCardProps) {
   const { theme } = useAppTheme();
   const styles = useMemo(() => makeStyles(theme), [theme]);
   const accent = accentColor ?? theme.colors.primary;
-  const softBg = `${accent}18`;
-  const softBorder = `${accent}28`;
+  const softBg = `${accent}${theme.isDark ? '22' : '12'}`;
+  const borderColor = `${accent}${theme.isDark ? '28' : '18'}`;
 
   return (
-    <View style={[styles.card, { borderColor: theme.isDark ? `${accent}22` : theme.card.border }]}>
+    <View style={[styles.card, { borderColor }]}>
+      <LinearGradient
+        colors={[`${accent}${theme.isDark ? '1A' : '0D'}`, theme.colors.surface]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={StyleSheet.absoluteFill}
+      />
       {/* Top accent bar */}
       <View style={[styles.topBar, { backgroundColor: accent }]} />
       <View style={styles.body}>
-        {/* Accent icon dot */}
-        <View style={[styles.dotWrap, { backgroundColor: softBg, borderColor: softBorder }]}>
+        {/* Accent icon circle */}
+        <View style={[styles.dotWrap, { backgroundColor: softBg, borderColor: `${accent}${theme.isDark ? '44' : '28'}` }]}>
           <View style={[styles.dot, { backgroundColor: accent }]} />
         </View>
         <Text style={[styles.value, { color: accent }]} numberOfLines={1}>{value}</Text>
@@ -40,10 +47,10 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     flexBasis: '46%',
     minWidth: 0,
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.lg,
+    borderRadius: theme.radius.xl,
     borderWidth: 1,
     overflow: 'hidden',
-    ...theme.card.shadow.sm,
+    ...theme.card.shadow.md,
   },
   topBar: {
     height: 4,
@@ -55,24 +62,24 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     gap: 4,
   },
   dotWrap: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    borderWidth: 1,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 2,
+    marginBottom: 4,
   },
   dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
   },
   value: {
-    fontSize: 26,
-    fontWeight: '800',
-    letterSpacing: -0.8,
-    lineHeight: 30,
+    fontSize: 28,
+    fontWeight: '900',
+    letterSpacing: -1,
+    lineHeight: 32,
   },
   label: {
     fontSize: 10,
@@ -87,3 +94,10 @@ function makeStyles(theme: AppTheme) { return StyleSheet.create({
     fontWeight: '500',
   },
 }); }
+
+interface StatCardProps {
+  label: string;
+  value: string | number;
+  hint?: string;
+  accentColor?: string;
+}

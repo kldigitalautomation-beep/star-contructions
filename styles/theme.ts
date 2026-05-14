@@ -2,6 +2,7 @@ import { Appearance, Platform } from 'react-native';
 
 // ─── Star Constructions Brand Palette ───────────────────────────────────────
 // Logo: deep navy #163A7C  |  gold/amber #F5A623  |  orange #E8870A
+// Reference UI: premium iOS-style with warm orange accents, glassmorphism
 // ─────────────────────────────────────────────────────────────────────────────
 
 const gradient = (...colors: [string, string, ...string[]]) => colors;
@@ -25,16 +26,19 @@ const lightPalette = {
   accent: '#F5A623',
   accentDark: '#C47A00',
   accentSoft: 'rgba(245,166,35,0.14)',
+  orange: '#E8870A',
+  orangeSoft: 'rgba(232,135,10,0.12)',
   // Backgrounds
-  background: '#EAF0FA',
-  backgroundAlt: '#DDE8F6',
+  background: '#F0F4FC',
+  backgroundAlt: '#E2EAF8',
   surface: '#FFFFFF',
-  surfaceVariant: '#F2F6FD',
+  surfaceVariant: '#F5F8FE',
   surfaceElevated: '#FFFFFF',
+  surfaceGlass: 'rgba(255,255,255,0.88)',
   // Borders
-  border: '#D8E5F5',
-  borderStrong: '#B8CCEA',
-  divider: '#E8EFF9',
+  border: '#E0EAFA',
+  borderStrong: '#C0D4EE',
+  divider: '#EBF1FB',
   // Text
   text: '#0A1628',
   textSecondary: '#1E3060',
@@ -57,8 +61,8 @@ const lightPalette = {
   // Tab / Overlay
   overlay: 'rgba(10,22,40,0.52)',
   overlayLight: 'rgba(255,255,255,0.94)',
-  tabBar: '#FFFFFF',
-  tabBarBorder: '#D8E5F5',
+  tabBar: 'rgba(255,255,255,0.96)',
+  tabBarBorder: 'rgba(22,58,124,0.12)',
   // Header-specific
   headerBg: '#163A7C',
   headerText: '#FFFFFF',
@@ -66,7 +70,11 @@ const lightPalette = {
   // Extra tokens
   inputBg: '#F8FBFF',
   chipActive: '#163A7C',
-  tabActiveIndicator: 'rgba(22,58,124,0.10)',
+  tabActiveIndicator: 'rgba(22,58,124,0.12)',
+  // Card gradient tokens
+  cardGradientStart: '#FFFFFF',
+  cardGradientEnd: '#F5F8FE',
+  heroCardBg: 'rgba(22,58,124,0.05)',
 };
 
 // ─── Dark Palette ──────────────────────────────────────────────────────────
@@ -79,14 +87,17 @@ const darkPalette = {
   accent: '#F5A623',
   accentDark: '#D58A12',
   accentSoft: 'rgba(245,166,35,0.24)',
+  orange: '#FF9A3C',
+  orangeSoft: 'rgba(255,154,60,0.20)',
   background: '#060D1C',
   backgroundAlt: '#0C1628',
-  surface: '#101E3C',
+  surface: '#0F1D3A',
   surfaceVariant: '#0A1428',
-  surfaceElevated: '#182642',
-  border: 'rgba(255,255,255,0.18)',
-  borderStrong: 'rgba(255,255,255,0.34)',
-  divider: 'rgba(255,255,255,0.10)',
+  surfaceElevated: '#162540',
+  surfaceGlass: 'rgba(15,29,58,0.92)',
+  border: 'rgba(255,255,255,0.14)',
+  borderStrong: 'rgba(255,255,255,0.28)',
+  divider: 'rgba(255,255,255,0.08)',
   text: '#EEF4FF',
   textSecondary: '#C8D8F4',
   textMuted: '#8EA8D8',
@@ -106,8 +117,8 @@ const darkPalette = {
   infoText: '#BDD4FF',
   overlay: 'rgba(2,6,14,0.82)',
   overlayLight: 'rgba(255,255,255,0.10)',
-  tabBar: '#0D1B38',
-  tabBarBorder: 'rgba(122,170,255,0.20)',
+  tabBar: 'rgba(9,18,42,0.97)',
+  tabBarBorder: 'rgba(122,170,255,0.18)',
   // Header-specific
   headerBg: '#0A1836',
   headerText: '#EEF4FF',
@@ -116,6 +127,10 @@ const darkPalette = {
   inputBg: '#0C1830',
   chipActive: '#7AAAFF',
   tabActiveIndicator: 'rgba(122,170,255,0.18)',
+  // Card gradient tokens
+  cardGradientStart: '#101E3C',
+  cardGradientEnd: '#0C1830',
+  heroCardBg: 'rgba(122,170,255,0.08)',
 };
 
 // ─── Build Theme ──────────────────────────────────────────────────────────
@@ -190,7 +205,7 @@ export function buildTheme(isDark: boolean) {
     gradients: {
       appBackground: isDark
         ? gradient('#060D1C', '#0A1628', '#0E1D3A')
-        : gradient('#EAF0FA', '#F4F7FD', '#EAF0FA'),
+        : gradient('#F0F4FC', '#F5F8FE', '#F0F4FC'),
       hero: isDark
         ? gradient('#163A7C', '#2252B8', '#060D1C')
         : gradient('#163A7C', '#1D4A96', '#2D5AA8'),
@@ -198,14 +213,23 @@ export function buildTheme(isDark: boolean) {
         ? gradient('rgba(6,13,28,0.60)', 'rgba(6,13,28,0.24)')
         : gradient('rgba(22,58,124,0.84)', 'rgba(13,36,86,0.96)'),
       card: isDark
-        ? gradient('#101E3C', '#0C1830')
-        : gradient('#FFFFFF', '#F8FCFF'),
+        ? gradient('#0F1D3A', '#0C1830')
+        : gradient('#FFFFFF', '#F5F8FE'),
       cardAccent: isDark
-        ? gradient('rgba(122,170,255,0.14)', '#0C1830')
-        : gradient('rgba(22,58,124,0.05)', '#FFFFFF'),
+        ? gradient('rgba(122,170,255,0.12)', '#0C1830')
+        : gradient('rgba(22,58,124,0.04)', '#FFFFFF'),
       cardGold: isDark
-        ? gradient('rgba(245,166,35,0.18)', '#0C1830')
-        : gradient('rgba(245,166,35,0.07)', '#FFFFFF'),
+        ? gradient('rgba(245,166,35,0.16)', '#0C1830')
+        : gradient('rgba(245,166,35,0.06)', '#FFFFFF'),
+      cardOrange: isDark
+        ? gradient('rgba(255,154,60,0.18)', '#0C1830')
+        : gradient('rgba(232,135,10,0.08)', '#FFFFFF'),
+      cardSuccess: isDark
+        ? gradient('rgba(46,232,122,0.14)', '#0C1830')
+        : gradient('rgba(0,168,90,0.06)', '#FFFFFF'),
+      cardDanger: isDark
+        ? gradient('rgba(255,107,107,0.14)', '#0C1830')
+        : gradient('rgba(212,42,48,0.06)', '#FFFFFF'),
       primaryButton: isDark
         ? gradient('#4B84F0', '#2252B8')
         : gradient('#1D4A96', '#163A7C'),
@@ -219,10 +243,29 @@ export function buildTheme(isDark: boolean) {
       screenHeader: isDark
         ? gradient('#0D1E46', '#07122C')
         : gradient('#163A7C', '#1B4494', '#0D2456'),
+      dashboardHeader: isDark
+        ? gradient('#0D1E46', '#091832', '#060D1C')
+        : gradient('#163A7C', '#1E4FA0', '#2660B8'),
       tabBar: isDark
-        ? gradient('#0D1B38', '#08122C')
-        : gradient('#FFFFFF', '#F6FAFF'),
+        ? gradient('rgba(9,18,42,0.97)', 'rgba(6,13,32,0.99)')
+        : gradient('rgba(255,255,255,0.98)', 'rgba(248,251,255,0.99)'),
       loginBrand: gradient('#163A7C', '#1D4A96', '#0D2456'),
+      statSuccess: isDark
+        ? gradient('rgba(46,232,122,0.20)', 'rgba(0,100,60,0.28)')
+        : gradient('rgba(0,168,90,0.10)', 'rgba(0,168,90,0.03)'),
+      statWarning: isDark
+        ? gradient('rgba(245,166,35,0.26)', 'rgba(180,110,0,0.28)')
+        : gradient('rgba(230,146,0,0.12)', 'rgba(230,146,0,0.03)'),
+      statDanger: isDark
+        ? gradient('rgba(255,107,107,0.26)', 'rgba(180,20,20,0.28)')
+        : gradient('rgba(212,42,48,0.10)', 'rgba(212,42,48,0.03)'),
+      statInfo: isDark
+        ? gradient('rgba(122,170,255,0.22)', 'rgba(30,60,140,0.28)')
+        : gradient('rgba(45,90,168,0.08)', 'rgba(45,90,168,0.02)'),
+      progressFill: gradient('#163A7C', '#2D5AA8'),
+      progressFillGold: gradient('#F5A623', '#E8870A'),
+      progressFillSuccess: gradient('#00A85A', '#00C870'),
+      progressFillDanger: gradient('#D42A30', '#F04040'),
     },
     glass: {
       tint: isDark ? ('dark' as const) : ('light' as const),
